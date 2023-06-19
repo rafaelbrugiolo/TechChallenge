@@ -4,12 +4,13 @@ using FidelityCard.Application.Dtos;
 using FidelityCard.Application.ViewModels;
 using FidelityCard.Domain.Entities;
 using FidelityCard.Domain.Interfaces;
+using FidelityCard.Application.Interfaces;
 
 namespace FidelityCard.Application.Services;
 
 public class UserService : IUserService
 {
-    private const string UserContainer = "userscontainer";
+    private const string UsersContainer = "users";
     private readonly IStorage _blobStorage;
     private readonly IUserRepository _repository;
 
@@ -19,7 +20,7 @@ public class UserService : IUserService
         _repository = repository;
     }
 
-    public async Task<Guid> CreateUser(UserDto dto, IFormFile? file)
+    public async Task<Guid> Create(UserDto dto, IFormFile? file)
     {
         var fileName = await UploadAvatar(file);
         var user = new User
@@ -33,7 +34,7 @@ public class UserService : IUserService
         return user.Id;
     }
 
-    public UserViewModel GetUserById(Guid id)
+    public UserViewModel GetById(Guid id)
     {
         var user = _repository.Read(id);
         if (user is null)
@@ -42,14 +43,14 @@ public class UserService : IUserService
         return new UserViewModel { Id = user.Id, Name = user.Name };
     }
 
-    public async Task EditUser(Guid id, UserViewModel viewModel, IFormFile? file)
+    public async Task Edit(Guid id, UserViewModel viewModel, IFormFile? file)
     {
         var user = _repository.Read(id);
         if (user is null)
             throw new ResourceNotFoundException($"User {id} not found.");
 
         if (!string.IsNullOrWhiteSpace(user.AvatarFileName))
-            _blobStorage.DeleteFile(UserContainer, user.AvatarFileName);
+            _blobStorage.DeleteFile(UsersContainer, user.AvatarFileName);
 
         var fileName = await UploadAvatar(file);
 
@@ -60,20 +61,20 @@ public class UserService : IUserService
         _repository.SaveChanges();
     }
 
-    public void DeleteUserById(Guid id)
+    public void DeleteById(Guid id)
     {
         var user = _repository.Read(id);
         if (user is null)
             throw new ResourceNotFoundException($"User {id} not found.");
 
         if (!string.IsNullOrWhiteSpace(user.AvatarFileName))
-            _blobStorage.DeleteFile(UserContainer, user.AvatarFileName);
+            _blobStorage.DeleteFile(UsersContainer, user.AvatarFileName);
 
         _repository.Delete(id);
         _repository.SaveChanges();
     }
 
-    public IEnumerable<UserViewModel> GetAllUser()
+    public IEnumerable<UserViewModel> GetAll()
     {
         foreach (var user in _repository.List())
             yield return new UserViewModel { Id = user.Id, Name = user.Name };
@@ -85,7 +86,7 @@ public class UserService : IUserService
             return null;
 
         var extension = Path.GetExtension(file.FileName).Replace(".", "");
-        var fileName = await _blobStorage.UploadFile(UserContainer, file.OpenReadStream(), extension);
+        var fileName = await _blobStorage.UploadFile(UsersContainer, file.OpenReadStream(), extension);
         return fileName;
     }
 }

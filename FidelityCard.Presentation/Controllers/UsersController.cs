@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FidelityCard.Application.Common;
 using FidelityCard.Application.Dtos;
-using FidelityCard.Application.Services;
 using FidelityCard.Application.ViewModels;
+using FidelityCard.Application.Interfaces;
 
 namespace FidelityCard.Presentation.Controllers;
 
@@ -18,14 +18,14 @@ public class UsersController : Controller
     // GET: UserController
     public ActionResult Index()
     {
-        var people = _UserService.GetAllUser();
+        var people = _UserService.GetAll();
         return View(people);
     }
 
     // GET: UserController/Details/5
     public ActionResult Details(Guid id)
     {
-        var user = _UserService.GetUserById(id);
+        var user = _UserService.GetById(id);
         return View(user);
     }
 
@@ -43,7 +43,7 @@ public class UsersController : Controller
         try
         {
             var file = Request.Form.Files["AvatarImage"];
-            await _UserService.CreateUser(userDto, file);
+            await _UserService.Create(userDto, file);
 
             return RedirectToAction(nameof(Index));
         }
@@ -58,7 +58,7 @@ public class UsersController : Controller
     {
         try
         {
-            var user = _UserService.GetUserById(id);
+            var user = _UserService.GetById(id);
             return View(user);
         }
         catch (ResourceNotFoundException ex)
@@ -75,7 +75,7 @@ public class UsersController : Controller
         try
         {
             var file = Request.Form.Files["AvatarImage"];
-            _UserService.EditUser(id, viewModel, file);
+            _UserService.Edit(id, viewModel, file);
             return RedirectToAction(nameof(Index));
         }
         catch (ResourceNotFoundException ex)
@@ -89,7 +89,7 @@ public class UsersController : Controller
     {
         try
         {
-            var user = _UserService.GetUserById(id);
+            var user = _UserService.GetById(id);
             return View(user);
         }
         catch (ResourceNotFoundException ex)
@@ -105,7 +105,7 @@ public class UsersController : Controller
     {
         try
         {
-            _UserService.DeleteUserById(id);
+            _UserService.DeleteById(id);
             return RedirectToAction(nameof(Index));
         }
         catch (ResourceNotFoundException ex)

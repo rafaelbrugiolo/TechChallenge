@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using FidelityCard.Domain.Interfaces;
 using FidelityCard.Infrastructure.Database;
 using FidelityCard.Infrastructure.Database.Repositories;
 using FidelityCard.Infrastructure.FileStorage;
+using FidelityCard.Domain.Interfaces;
 
 namespace FidelityCard.Infrastructure.Extensions;
 public static class IServiceCollectionExtensions

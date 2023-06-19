@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using FidelityCard.Application.Services;
+using FidelityCard.Application.Interfaces;
 
 namespace FidelityCard.Application.Common;
 
