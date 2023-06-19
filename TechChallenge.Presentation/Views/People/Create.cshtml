@@ -1,59 +1,63 @@
 ﻿@model TechChallenge.Application.Dtos.PersonDto
 
 @{
-    ViewData["Title"] = "Create person";
+	ViewData["Title"] = "Create a new User";
 }
 
-<script src="~/ckeditor/ckeditor.js"></script>
-<script src="~/ckeditor/adapters/jquery.js"></script>
+<h1>Create a New User</h1>
 
-<h1>User</h1>
 
-<h4>InsertUserDto</h4>
 <hr />@using (Html.BeginForm("Create", "People", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.AntiForgeryToken()
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Birthdate" class="control-label"></label>
-                    <input asp-for="Birthdate" class="form-control" />
-                    <span asp-validation-for="Birthdate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="file" name="AvatarImage" id="AvatarImage" onchange="fileCheck(this);" />
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </form>
-        </div>
-    </div>
+	@Html.AntiForgeryToken()
 
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+	<form asp-action="Create">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th><label asp-for="Name">Name</label></th>
+					<th><label asp-for="Birthdate">Date Of Birth</label></th>
+					<th><label for="AvatarImage">Avatar</label></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input asp-for="Name" type="text" />
+						<span asp-validation-for="Name" class="text-danger"></span>
+					</td>
+					<td><input asp-for="Birthdate" type="date" />
+						<span asp-validation-for="Birthdate" class="text-danger"></span>
+					</td>
+
+					<td><input name="AvatarImage" type="file" id="AvatarImage" onchange="fileCheck(this);" /></td>
+					<td><input type="submit" value="Create" class="btn btn-primary" /></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</form>
+	<div>
+		<a asp-action="Index"><button type="button" class="btn btn-outline-primary btn-sm">Return to the list</button></a>
+	</div>
 }
 
 @section Scripts {
 
-    <script type="text/javascript">
-        function fileCheck(obj) {
-            var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
-            if ($.inArray($(obj).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                alert("Only '.jpeg','.jpg', '.png', '.gif', '.bmp' formats are allowed.");
-            }
-        }
-    </script>
+	<script type="text/javascript">
+		function fileCheck(obj) {
+			var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+			if ($.inArray($(obj).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+				alert("Only '.jpeg','.jpg', '.png', '.gif', '.bmp' formats are allowed.");
+			}
+		}
+	</script>
 
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+	<script src="~/ckeditor/ckeditor.js"></script>
+	<script src="~/ckeditor/adapters/jquery.js"></script>
 }
