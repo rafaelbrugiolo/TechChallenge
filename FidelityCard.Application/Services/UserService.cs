@@ -25,7 +25,6 @@ public class UserService : IUserService
         var user = new User
         {
             Name = dto.Name,
-            Birthdate = dto.Birthdate,
             AvatarFileName = fileName
         };
         _repository.Insert(user);
@@ -40,7 +39,7 @@ public class UserService : IUserService
         if (user is null)
             throw new ResourceNotFoundException($"User {id} not found.");
         
-        return new UserViewModel { Id = user.Id, Name = user.Name, Birthdate = user.Birthdate };
+        return new UserViewModel { Id = user.Id, Name = user.Name };
     }
 
     public async Task EditUser(Guid id, UserViewModel viewModel, IFormFile? file)
@@ -55,7 +54,6 @@ public class UserService : IUserService
         var fileName = await UploadAvatar(file);
 
         user.Name = viewModel.Name;
-        user.Birthdate = viewModel.Birthdate;
         user.AvatarFileName = fileName;
 
         _repository.Update(user);
@@ -78,7 +76,7 @@ public class UserService : IUserService
     public IEnumerable<UserViewModel> GetAllUser()
     {
         foreach (var user in _repository.List())
-            yield return new UserViewModel { Id = user.Id, Name = user.Name, Birthdate = user.Birthdate };
+            yield return new UserViewModel { Id = user.Id, Name = user.Name };
     }
 
     private async Task<string?> UploadAvatar(IFormFile? file)

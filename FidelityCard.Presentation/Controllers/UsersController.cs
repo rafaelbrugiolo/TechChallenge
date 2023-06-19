@@ -15,27 +15,27 @@ public class UsersController : Controller
         _UserService = UserService;
     }
 
-    // GET: PeopleController
+    // GET: UserController
     public ActionResult Index()
     {
         var people = _UserService.GetAllUser();
         return View(people);
     }
 
-    // GET: PeopleController/Details/5
+    // GET: UserController/Details/5
     public ActionResult Details(Guid id)
     {
         var user = _UserService.GetUserById(id);
         return View(user);
     }
 
-    // GET: PeopleController/Create
+    // GET: UserController/Create
     public ActionResult Create()
     {
         return View();
     }
 
-    // POST: PeopleController/Create
+    // POST: UserController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<ActionResult> CreateAsync(UserDto userDto)
@@ -53,7 +53,7 @@ public class UsersController : Controller
         }
     }
 
-    // GET: PeopleController/Edit/5
+    // GET: UserController/Edit/5
     public ActionResult Edit(Guid id)
     {
         try
@@ -67,7 +67,7 @@ public class UsersController : Controller
         }
     }
 
-    // POST: PeopleController/Edit/5
+    // POST: UserController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
     public ActionResult Edit(Guid id, UserViewModel viewModel)
@@ -84,7 +84,7 @@ public class UsersController : Controller
         }
     }
 
-    // GET: PeopleController/Delete/5
+    // GET: UserController/Delete/5
     public ActionResult Delete(Guid id)
     {
         try
@@ -98,7 +98,7 @@ public class UsersController : Controller
         }
     }
 
-    // POST: PeopleController/Delete/5
+    // POST: UserController/Delete/5
     [HttpPost]
     [ValidateAntiForgeryToken]
     public ActionResult Delete(Guid id, UserDto userDto)

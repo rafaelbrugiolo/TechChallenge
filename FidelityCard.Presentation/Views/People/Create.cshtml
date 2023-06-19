@@ -7,7 +7,7 @@
 <h1>Create a New User</h1>
 
 
-<hr />@using (Html.BeginForm("Create", "People", FormMethod.Post, new { enctype = "multipart/form-data" }))
+<hr />@using (Html.BeginForm("Create", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 	@Html.AntiForgeryToken()
 
@@ -17,7 +17,6 @@
 			<thead>
 				<tr>
 					<th><label asp-for="Name">Name</label></th>
-					<th><label asp-for="Birthdate">Date Of Birth</label></th>
 					<th><label for="AvatarImage">Avatar</label></th>
 					<th></th>
 				</tr>
@@ -26,9 +25,6 @@
 				<tr>
 					<td><input asp-for="Name" type="text" />
 						<span asp-validation-for="Name" class="text-danger"></span>
-					</td>
-					<td><input asp-for="Birthdate" type="date" />
-						<span asp-validation-for="Birthdate" class="text-danger"></span>
 					</td>
 
 					<td><input name="AvatarImage" type="file" id="AvatarImage" onchange="fileCheck(this);" /></td>

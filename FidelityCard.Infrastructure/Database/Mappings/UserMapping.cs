@@ -12,10 +12,6 @@ public class UserMapping : BaseMapping<User>
             .IsRequired()
             .HasColumnName("Name");
 
-        entityTypeBuilder.Property(p => p.Birthdate)
-            .IsRequired()
-            .HasColumnName("Birthdate");
-
         entityTypeBuilder.Property(p => p.AvatarFileName)
             .HasColumnName("AvatarFileName");
     }
