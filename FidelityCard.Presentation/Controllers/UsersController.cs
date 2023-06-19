@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FidelityCard.Application.Common;
-using FidelityCard.Application.Dtos;
-using FidelityCard.Application.ViewModels;
 using FidelityCard.Application.Interfaces;
+using FidelityCard.Application.Dtos.Request;
+using FidelityCard.Application.Dtos.Response;
 
 namespace FidelityCard.Presentation.Controllers;
 
@@ -38,7 +38,7 @@ public class UsersController : Controller
     // POST: UserController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> CreateAsync(UserDto userDto)
+    public async Task<ActionResult> CreateAsync(UserRequestDto userDto)
     {
         try
         {
@@ -70,7 +70,7 @@ public class UsersController : Controller
     // POST: UserController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(Guid id, UserViewModel viewModel)
+    public ActionResult Edit(Guid id, UserResponseDto viewModel)
     {
         try
         {
@@ -101,7 +101,7 @@ public class UsersController : Controller
     // POST: UserController/Delete/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Delete(Guid id, UserDto userDto)
+    public ActionResult Delete(Guid id, UserRequestDto userDto)
     {
         try
         {

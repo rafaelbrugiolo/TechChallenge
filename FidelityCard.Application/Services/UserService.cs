@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using FidelityCard.Application.Common;
-using FidelityCard.Application.Dtos;
-using FidelityCard.Application.ViewModels;
 using FidelityCard.Domain.Entities;
 using FidelityCard.Domain.Interfaces;
 using FidelityCard.Application.Interfaces;
+using FidelityCard.Application.Dtos.Request;
+using FidelityCard.Application.Dtos.Response;
 
 namespace FidelityCard.Application.Services;
 
@@ -20,7 +20,7 @@ public class UserService : IUserService
         _repository = repository;
     }
 
-    public async Task<Guid> Create(UserDto dto, IFormFile? file)
+    public async Task<Guid> Create(UserRequestDto dto, IFormFile? file)
     {
         var fileName = await UploadAvatar(file);
         var user = new User
@@ -34,16 +34,16 @@ public class UserService : IUserService
         return user.Id;
     }
 
-    public UserViewModel GetById(Guid id)
+    public UserResponseDto GetById(Guid id)
     {
         var user = _repository.Read(id);
         if (user is null)
             throw new ResourceNotFoundException($"User {id} not found.");
         
-        return new UserViewModel { Id = user.Id, Name = user.Name };
+        return new UserResponseDto { Id = user.Id, Name = user.Name };
     }
 
-    public async Task Edit(Guid id, UserViewModel viewModel, IFormFile? file)
+    public async Task Edit(Guid id, UserResponseDto viewModel, IFormFile? file)
     {
         var user = _repository.Read(id);
         if (user is null)
@@ -74,10 +74,10 @@ public class UserService : IUserService
         _repository.SaveChanges();
     }
 
-    public IEnumerable<UserViewModel> GetAll()
+    public IEnumerable<UserResponseDto> GetAll()
     {
         foreach (var user in _repository.List())
-            yield return new UserViewModel { Id = user.Id, Name = user.Name };
+            yield return new UserResponseDto { Id = user.Id, Name = user.Name };
     }
 
     private async Task<string?> UploadAvatar(IFormFile? file)
