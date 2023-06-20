@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using FidelityCard.Application.Common;
-using FidelityCard.Application.Interfaces;
+﻿using FidelityCard.Application.Common;
 using FidelityCard.Application.Dtos.Request;
-using FidelityCard.Application.Dtos.Response;
+using FidelityCard.Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FidelityCard.Presentation.Controllers;
 
@@ -15,35 +14,34 @@ public class UsersController : Controller
         _UserService = UserService;
     }
 
-    // GET: UserController
+    [HttpGet]
     public ActionResult Index()
     {
-        var people = _UserService.GetAll();
+        var people = _UserService.GetAll().ToArray();
         return View(people);
     }
 
-    // GET: UserController/Details/5
-    public ActionResult Details(Guid id)
+	[HttpGet("Details/{id}")]
+	public ActionResult Details(Guid id)
     {
         var user = _UserService.GetById(id);
         return View(user);
     }
 
-    // GET: UserController/Create
-    public ActionResult Create()
+	[HttpGet]
+	public ActionResult Create()
     {
         return View();
     }
 
-    // POST: UserController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> CreateAsync(UserRequestDto userDto)
+    public async Task<ActionResult> Create(UserRequestDto dto)
     {
         try
         {
             var file = Request.Form.Files["AvatarImage"];
-            await _UserService.Create(userDto, file);
+            await _UserService.Create(dto, file);
 
             return RedirectToAction(nameof(Index));
         }
@@ -53,8 +51,8 @@ public class UsersController : Controller
         }
     }
 
-    // GET: UserController/Edit/5
-    public ActionResult Edit(Guid id)
+	[HttpGet("Edit/{id}")]
+	public ActionResult Edit(Guid id)
     {
         try
         {
@@ -67,15 +65,14 @@ public class UsersController : Controller
         }
     }
 
-    // POST: UserController/Edit/5
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult Edit(Guid id, UserResponseDto viewModel)
+	[HttpPut("{id}")]
+	[ValidateAntiForgeryToken]
+    public ActionResult Edit(Guid id, UserRequestDto dto)
     {
         try
         {
             var file = Request.Form.Files["AvatarImage"];
-            _UserService.Edit(id, viewModel, file);
+            _UserService.Edit(id, dto, file);
             return RedirectToAction(nameof(Index));
         }
         catch (ResourceNotFoundException ex)
@@ -84,8 +81,8 @@ public class UsersController : Controller
         }
     }
 
-    // GET: UserController/Delete/5
-    public ActionResult Delete(Guid id)
+	[HttpGet("Delete/{id}")]
+	public ActionResult Delete(Guid id)
     {
         try
         {
@@ -98,10 +95,9 @@ public class UsersController : Controller
         }
     }
 
-    // POST: UserController/Delete/5
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult Delete(Guid id, UserRequestDto userDto)
+	[HttpDelete("{id}")]
+	[ValidateAntiForgeryToken]
+    public ActionResult Delete(Guid id, UserRequestDto dto)
     {
         try
         {

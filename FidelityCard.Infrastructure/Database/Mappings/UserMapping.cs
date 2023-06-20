@@ -1,18 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FidelityCard.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using FidelityCard.Domain.Entities;
 
 namespace FidelityCard.Infrastructure.Database.Mappings;
 public class UserMapping : BaseMapping<User>
 {
     public override string TableName => "User";
-    protected override void EntityMap(EntityTypeBuilder<User> entityTypeBuilder)
-    {
-        entityTypeBuilder.Property(p => p.Name)
-            .IsRequired()
-            .HasColumnName("Name");
+    protected override void EntityMap(EntityTypeBuilder<User> builder)
+	{
+		builder.Property(p => p.CompanyId)
+			.IsRequired()
+			.HasColumnName("CompanyId");
 
-        entityTypeBuilder.Property(p => p.AvatarFileName)
+		builder.Property(p => p.Name)
+			.IsRequired()
+			.HasColumnName("Name");
+
+		builder.Property(p => p.Email)
+			.HasColumnName("Email");
+
+		builder.Property(p => p.AvatarFileName)
             .HasColumnName("AvatarFileName");
     }
 }

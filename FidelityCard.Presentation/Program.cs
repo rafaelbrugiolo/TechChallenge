@@ -1,13 +1,14 @@
-using FidelityCard.Infrastructure.Extensions;
 using FidelityCard.Application.Common;
-using Microsoft.EntityFrameworkCore;
 using FidelityCard.Infrastructure.Database;
+using FidelityCard.Infrastructure.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
 builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddTransient<DatabaseContext>();
 builder.Services.AddTransient<DbContext, DatabaseContext>();

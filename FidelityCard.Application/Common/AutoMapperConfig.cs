@@ -5,9 +5,9 @@ using FidelityCard.Domain.Entities;
 
 namespace FidelityCard.Application.Common;
 
-public class AutomapperConfig : Profile
+public class AutoMapperConfig : Profile
 {
-	public AutomapperConfig()
+	public AutoMapperConfig()
 	{
 		CreateMap<User, UserRequestDto>().ReverseMap();
 		CreateMap<User, UserResponseDto>().ReverseMap();
