@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FidelityCard.Domain.Interfaces;
+using FidelityCard.Infrastructure.Database;
+using FidelityCard.Infrastructure.FileStorage;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using FidelityCard.Infrastructure.Database;
-using FidelityCard.Infrastructure.Database.Repositories;
-using FidelityCard.Infrastructure.FileStorage;
-using FidelityCard.Domain.Interfaces;
 
 namespace FidelityCard.Infrastructure.Extensions;
 public static class IServiceCollectionExtensions

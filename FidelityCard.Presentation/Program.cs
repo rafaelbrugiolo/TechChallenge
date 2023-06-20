@@ -1,3 +1,4 @@
+using AutoMapper;
 using FidelityCard.Application.Common;
 using FidelityCard.Infrastructure.Database;
 using FidelityCard.Infrastructure.Extensions;
@@ -8,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
 builder.Services.AddControllersWithViews();
-builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddTransient<DatabaseContext>();
 builder.Services.AddTransient<DbContext, DatabaseContext>();
