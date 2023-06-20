@@ -21,6 +21,7 @@ public class CompanyMapping : BaseMapping<Company>
 			.HasColumnName("TradeName");
 
 		entityTypeBuilder.Property(p => p.IsRemoved)
-            .HasColumnName("IsRemoved");
+			.IsRequired()
+			.HasColumnName("IsRemoved");
     }
 }

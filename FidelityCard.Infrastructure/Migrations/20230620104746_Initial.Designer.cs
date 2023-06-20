@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FidelityCard.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230620103654_Initial")]
+    [Migration("20230620104746_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
