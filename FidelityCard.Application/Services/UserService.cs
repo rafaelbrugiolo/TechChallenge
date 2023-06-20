@@ -5,6 +5,7 @@ using FidelityCard.Domain.Interfaces;
 using FidelityCard.Application.Interfaces;
 using FidelityCard.Application.Dtos.Request;
 using FidelityCard.Application.Dtos.Response;
+using AutoMapper;
 
 namespace FidelityCard.Application.Services;
 
@@ -13,21 +14,22 @@ public class UserService : IUserService
     private const string UsersContainer = "users";
     private readonly IStorage _blobStorage;
     private readonly IUserRepository _repository;
+	private readonly IMapper _mapper;
 
-    public UserService(IStorage blobStorage, IUserRepository repository)
+	public UserService(IStorage blobStorage, IUserRepository repository, IMapper mapper)
     {
         _blobStorage = blobStorage;
         _repository = repository;
-    }
+		_mapper = mapper;
+	}
 
     public async Task<Guid> Create(UserRequestDto dto, IFormFile? file)
     {
         var fileName = await UploadAvatar(file);
-        var user = new User
-        {
-            Name = dto.Name,
-            AvatarFileName = fileName
-        };
+        
+        var user = _mapper.Map<User>(dto);
+        user.AvatarFileName = fileName;
+
         _repository.Insert(user);
         _repository.SaveChanges();
 
@@ -40,10 +42,10 @@ public class UserService : IUserService
         if (user is null)
             throw new ResourceNotFoundException($"User {id} not found.");
         
-        return new UserResponseDto { Id = user.Id, Name = user.Name };
-    }
+        return _mapper.Map<UserResponseDto>(user);
+	}
 
-    public async Task Edit(Guid id, UserResponseDto viewModel, IFormFile? file)
+    public async Task Edit(Guid id, UserRequestDto dto, IFormFile? file)
     {
         var user = _repository.Read(id);
         if (user is null)
@@ -54,7 +56,7 @@ public class UserService : IUserService
 
         var fileName = await UploadAvatar(file);
 
-        user.Name = viewModel.Name;
+        user.Name = dto.Name;
         user.AvatarFileName = fileName;
 
         _repository.Update(user);
@@ -77,8 +79,8 @@ public class UserService : IUserService
     public IEnumerable<UserResponseDto> GetAll()
     {
         foreach (var user in _repository.List())
-            yield return new UserResponseDto { Id = user.Id, Name = user.Name };
-    }
+            yield return _mapper.Map<UserResponseDto>(user);
+	}
 
     private async Task<string?> UploadAvatar(IFormFile? file)
     {

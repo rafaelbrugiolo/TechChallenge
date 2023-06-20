@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using FidelityCard.Application.Dtos.Request;
-using FidelityCard.Application.Dtos.Response;
+﻿using FidelityCard.Application.Dtos.Request;
+using Microsoft.AspNetCore.Http;
 
 namespace FidelityCard.Application.Interfaces;
 public interface ICompanyService
 {
-    Task<Guid> Create(UserRequestDto dto, IFormFile? file);
-    UserResponseDto GetById(Guid id);
-    Task Edit(Guid id, UserResponseDto dto, IFormFile? file);
+    Guid Create(CompanyRequestDto dto);
+	CompanyResponseDto GetById(Guid id);
+    void Edit(Guid id, CompanyRequestDto dto);
     void DeleteById(Guid id);
-    IEnumerable<UserResponseDto> GetAll();
+    IEnumerable<CompanyResponseDto> GetAll();
 }

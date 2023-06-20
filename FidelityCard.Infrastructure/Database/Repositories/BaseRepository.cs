@@ -39,7 +39,7 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
 
     public IEnumerable<TEntity> List()
     {
-        return DbSet.AsQueryable();
+        return DbSet.AsNoTracking().AsQueryable();
     }
 
     public int SaveChanges()

@@ -7,7 +7,7 @@ public interface IUserService
 {
     Task<Guid> Create(UserRequestDto dto, IFormFile? file);
     UserResponseDto GetById(Guid id);
-    Task Edit(Guid id, UserResponseDto dto, IFormFile? file);
+    Task Edit(Guid id, UserRequestDto dto, IFormFile? file);
     void DeleteById(Guid id);
     IEnumerable<UserResponseDto> GetAll();
 }
