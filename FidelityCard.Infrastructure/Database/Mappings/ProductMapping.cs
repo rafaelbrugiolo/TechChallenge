@@ -18,7 +18,9 @@ public class ProductMapping : BaseMapping<Product>
 
         builder.Property(p => p.Price)
             .IsRequired()
-            .HasColumnName("Price");
+            .HasPrecision(2)
+            .HasColumnType("decimal")
+			.HasColumnName("Price");
 
         builder.Property(p => p.PictureFileName)
             .HasColumnName("PictureFileName");
