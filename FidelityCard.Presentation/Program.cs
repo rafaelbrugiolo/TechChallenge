@@ -1,5 +1,7 @@
 using FidelityCard.Application.Common;
+using FidelityCard.Infrastructure.Database;
 using FidelityCard.Infrastructure.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
