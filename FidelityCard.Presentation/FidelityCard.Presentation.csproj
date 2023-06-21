@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>edcdf071-9039-49e9-b9cc-8234203cfc88</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FidelityCard.Application\FidelityCard.Application.csproj" />
+    <ProjectReference Include="..\FidelityCard.Infrastructure\FidelityCard.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
