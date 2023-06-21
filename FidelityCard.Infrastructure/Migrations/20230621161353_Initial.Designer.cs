@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FidelityCard.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230621153200_Initial")]
+    [Migration("20230621161353_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -215,7 +215,7 @@ namespace FidelityCard.Infrastructure.Migrations
                     b.HasOne("FidelityCard.Domain.Entities.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -226,7 +226,7 @@ namespace FidelityCard.Infrastructure.Migrations
                     b.HasOne("FidelityCard.Domain.Entities.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -237,19 +237,19 @@ namespace FidelityCard.Infrastructure.Migrations
                     b.HasOne("FidelityCard.Domain.Entities.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("FidelityCard.Domain.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("FidelityCard.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -264,7 +264,7 @@ namespace FidelityCard.Infrastructure.Migrations
                     b.HasOne("FidelityCard.Domain.Entities.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Company");

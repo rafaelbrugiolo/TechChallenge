@@ -44,8 +44,7 @@ namespace FidelityCard.Infrastructure.Migrations
                         name: "FK_Customer_Company_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Company",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -65,8 +64,7 @@ namespace FidelityCard.Infrastructure.Migrations
                         name: "FK_Product_Company_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Company",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -86,8 +84,7 @@ namespace FidelityCard.Infrastructure.Migrations
                         name: "FK_User_Company_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Company",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -112,20 +109,17 @@ namespace FidelityCard.Infrastructure.Migrations
                         name: "FK_Promo_Company_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Company",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Promo_Product_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Product",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Promo_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
