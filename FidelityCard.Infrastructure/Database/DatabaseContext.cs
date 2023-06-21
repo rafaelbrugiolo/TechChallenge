@@ -14,6 +14,10 @@ public class DatabaseContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        new CompanyMapping().Initialize(modelBuilder.Entity<Company>());
         new UserMapping().Initialize(modelBuilder.Entity<User>());
+        new CustomerMapping().Initialize(modelBuilder.Entity<Customer>());
+        new ProductMapping().Initialize(modelBuilder.Entity<Product>());
+        new PromoMapping().Initialize(modelBuilder.Entity<Promo>());
     }
 }

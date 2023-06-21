@@ -1,5 +1,5 @@
 ﻿using FidelityCard.Application.Dtos.Request;
-using Microsoft.AspNetCore.Http;
+using FidelityCard.Application.Dtos.Response;
 
 namespace FidelityCard.Application.Interfaces;
 public interface ICompanyService

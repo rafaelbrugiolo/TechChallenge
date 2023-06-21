@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿﻿using Microsoft.AspNetCore.Http;
 using FidelityCard.Application.Common;
 using FidelityCard.Domain.Entities;
 using FidelityCard.Domain.Interfaces;
@@ -25,8 +25,10 @@ public class UserService : IUserService
 
     public async Task<Guid> Create(UserRequestDto dto, IFormFile? file)
     {
-        var fileName = await UploadAvatar(file);
-        
+        var fileName = file is not null
+            ? await _blobStorage.UploadFile(UsersContainer, file.OpenReadStream(), file.FileName)
+            : null;
+
         var user = _mapper.Map<User>(dto);
         user.AvatarFileName = fileName;
 
@@ -54,7 +56,9 @@ public class UserService : IUserService
         if (!string.IsNullOrWhiteSpace(user.AvatarFileName))
             _blobStorage.DeleteFile(UsersContainer, user.AvatarFileName);
 
-        var fileName = await UploadAvatar(file);
+        var fileName = file is not null
+            ? await _blobStorage.UploadFile(UsersContainer, file.OpenReadStream(), file.FileName)
+            : null;
 
         user.Name = dto.Name;
         user.AvatarFileName = fileName;
@@ -81,14 +85,4 @@ public class UserService : IUserService
         foreach (var user in _repository.List())
             yield return _mapper.Map<UserResponseDto>(user);
 	}
-
-    private async Task<string?> UploadAvatar(IFormFile? file)
-    {
-        if (file is null)
-            return null;
-
-        var extension = Path.GetExtension(file.FileName).Replace(".", "");
-        var fileName = await _blobStorage.UploadFile(UsersContainer, file.OpenReadStream(), extension);
-        return fileName;
-    }
 }

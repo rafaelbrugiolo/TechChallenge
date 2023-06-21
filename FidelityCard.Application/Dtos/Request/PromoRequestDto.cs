@@ -1,6 +1,5 @@
-﻿namespace FidelityCard.Domain.Entities;
-
-public class Promo : BaseEntity
+﻿namespace FidelityCard.Application.Dtos.Request;
+public class PromoRequestDto
 {
     public Guid CompanyId { get; set; }
     public Guid UserId { get; set; }
@@ -11,8 +10,4 @@ public class Promo : BaseEntity
     public int TimesToPrize { get; set; }
     public DateTime From { get; set; }
     public DateTime To { get; set; }
-
-    public virtual Company Company { get; set; }
-    public virtual User User { get; set; }
-    public virtual Product Product { get; set; }
 }

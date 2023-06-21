@@ -40,14 +40,15 @@ public class AzureBlobStorage : IStorage
         }
         catch (Exception e)
         {
-            throw;
+            return null;
         }
     }
 
-    public async Task<string> UploadFile(string container, Stream content, string fileExtension)
+    public async Task<string?> UploadFile(string container, Stream content, string originalFileName)
     {
         try
         {
+            var fileExtension = Path.GetExtension(originalFileName).Replace(".", "");
             var containerClient = _blobServiceClient.GetBlobContainerClient(container);
             containerClient.CreateIfNotExists();
 
@@ -61,7 +62,7 @@ public class AzureBlobStorage : IStorage
         }
         catch (Exception e)
         {
-            throw;
+            return null;
         }
     }
 }

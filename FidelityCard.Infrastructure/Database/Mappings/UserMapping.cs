@@ -17,7 +17,8 @@ public class UserMapping : BaseMapping<User>
 			.HasColumnName("Name");
 
 		builder.Property(p => p.Email)
-			.HasColumnName("Email");
+            .IsRequired()
+            .HasColumnName("Email");
 
 		builder.Property(p => p.AvatarFileName)
             .HasColumnName("AvatarFileName");

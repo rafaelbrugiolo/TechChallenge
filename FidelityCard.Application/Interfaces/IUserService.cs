@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using FidelityCard.Application.Dtos.Request;
+﻿using FidelityCard.Application.Dtos.Request;
 using FidelityCard.Application.Dtos.Response;
+using Microsoft.AspNetCore.Http;
 
 namespace FidelityCard.Application.Interfaces;
 public interface IUserService

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FidelityCard.Application.Common;
 using FidelityCard.Application.Dtos.Request;
+using FidelityCard.Application.Dtos.Response;
 using FidelityCard.Application.Interfaces;
 using FidelityCard.Domain.Entities;
 using FidelityCard.Domain.Interfaces;

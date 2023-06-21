@@ -1,4 +1,4 @@
-﻿namespace FidelityCard.Application.Dtos.Request;
+﻿namespace FidelityCard.Application.Dtos.Response;
 
 public class CompanyResponseDto
 {

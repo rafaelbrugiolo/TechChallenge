@@ -8,11 +8,20 @@ namespace FidelityCard.Application.Common;
 public class AutoMapperConfig : Profile
 {
 	public AutoMapperConfig()
-	{
-		CreateMap<User, UserRequestDto>().ReverseMap();
+    {
+        CreateMap<Company, CompanyRequestDto>().ReverseMap();
+        CreateMap<Company, CompanyResponseDto>().ReverseMap();
+        
+        CreateMap<User, UserRequestDto>().ReverseMap();
 		CreateMap<User, UserResponseDto>().ReverseMap();
 
-		CreateMap<Company, CompanyRequestDto>().ReverseMap();
-		CreateMap<Company, CompanyResponseDto>().ReverseMap();
-	}
+        CreateMap<Customer, CustomerRequestDto>().ReverseMap();
+        CreateMap<Customer, CustomerResponseDto>().ReverseMap();
+
+        CreateMap<Product, ProductRequestDto>().ReverseMap();
+        CreateMap<Product, ProductResponseDto>().ReverseMap();
+
+        CreateMap<Promo, PromoRequestDto>().ReverseMap();
+        CreateMap<Promo, PromoResponseDto>().ReverseMap();
+    }
 }
