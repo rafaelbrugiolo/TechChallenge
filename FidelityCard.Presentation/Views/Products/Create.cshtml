@@ -3,14 +3,14 @@
 @model IEnumerable<CompanyResponseDto>;
 
 @{
-	ViewData["Title"] = "Create a new User";
+	ViewData["Title"] = "Create a new Product";
 }
 
-<h1>Create a New User</h1>
+<h1>Create a New Product</h1>
 
 
 
-<hr />@using (Html.BeginForm("Create", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+<hr />@using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 	@Html.AntiForgeryToken()
 
@@ -18,10 +18,10 @@
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 		<table>
 			<th>
-				<label for="companies">Choose the Company the user is being created for:</label>
+				<label for="companies">Choose the Company the product is being created for:</label>
 			</th>
 		</table>
-		
+
 		<select name="CompanyId" id="CompanyId" class="unhideFunctions">
 			<option value=""></option>
 			@foreach (var item in Model)
@@ -32,18 +32,18 @@
 		<table class="initiallyHidden table">
 			<thead>
 				<tr>
-					<th><label for="Name">Name</label></th>
-					<th><label for="Email">Email</label></th>
+					<th><label for="Description">Description</label></th>
+					<th><label for="Price">Price</label></th>
 					<th><label for="AvatarImage">Avatar</label></th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td><input name="Name" type="text" />
-						<span validation-for="Name" class="text-danger"></span>
-					<td><input name="Email" type="email" />
-						<span validation-for="Email" class="text-danger"></span>
+					<td><input name="Description" type="text" />
+						<span validation-for="Description" class="text-danger"></span>
+					<td><input name="Price" type="text" />
+						<span validation-for="Price" class="text-danger"></span>
 					</td>
 
 					<td><input name="AvatarImage" type="file" id="AvatarImage" onchange="fileCheck(this);" /></td>

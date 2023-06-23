@@ -29,3 +29,6 @@ footer {
     color: #ffffff;
     padding: 25px;
 }
+.initiallyHidden {
+    display: none;
+}

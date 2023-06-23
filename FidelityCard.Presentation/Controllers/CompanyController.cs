@@ -5,30 +5,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FidelityCard.Presentation.Controllers;
 
-public class UsersController : Controller
+public class CompaniesController : Controller
 {
-    private readonly IUserService _UserService;
+    private readonly ICompanyService _CompanyService;
 
-    public UsersController(IUserService UserService)
+    public CompaniesController(ICompanyService companyService)
     {
-        _UserService = UserService;
+        _CompanyService = companyService;
     }
 
-    [HttpGet]
     public ActionResult Index()
     {
-        var people = _UserService.GetAll().ToArray();
-        return View(people);
+        var companies = _CompanyService.GetAll().ToArray();
+        return View(companies);
     }
 
-	[HttpGet("Details/{id}")]
 	public ActionResult Details(Guid id)
     {
-        var user = _UserService.GetById(id);
-        return View(user);
+        var company = _CompanyService.GetById(id);
+        return View(company);
     }
 
-	[HttpGet]
 	public ActionResult Create()
     {
         return View();
@@ -36,12 +33,11 @@ public class UsersController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Create(UserRequestDto dto)
+    public async Task<ActionResult> Create(CompanyRequestDto dto)
     {
         try
         {
-            var file = Request.Form.Files["AvatarImage"];
-            await _UserService.Create(dto, file);
+            _CompanyService.Create(dto);
 
             return RedirectToAction(nameof(Index));
         }
@@ -51,13 +47,13 @@ public class UsersController : Controller
         }
     }
 
-	[HttpGet("Edit/{id}")]
+	[HttpGet("Companies/Edit/{id}")]
 	public ActionResult Edit(Guid id)
     {
         try
         {
-            var user = _UserService.GetById(id);
-            return View(user);
+            var company = _CompanyService.GetById(id);
+            return View(company);
         }
         catch (ResourceNotFoundException ex)
         {
@@ -65,14 +61,13 @@ public class UsersController : Controller
         }
     }
 
-	[HttpPut("{id}")]
+	[HttpPost]
 	[ValidateAntiForgeryToken]
-    public ActionResult Edit(Guid id, UserRequestDto dto)
+    public ActionResult Edit(Guid id, CompanyRequestDto dto)
     {
         try
         {
-            var file = Request.Form.Files["AvatarImage"];
-            _UserService.Edit(id, dto, file);
+			_CompanyService.Edit(id, dto);
             return RedirectToAction(nameof(Index));
         }
         catch (ResourceNotFoundException ex)
@@ -81,13 +76,13 @@ public class UsersController : Controller
         }
     }
 
-	[HttpGet("Delete/{id}")]
+	[HttpGet("Companies/Delete/{id}")]
 	public ActionResult Delete(Guid id)
     {
         try
         {
-            var user = _UserService.GetById(id);
-            return View(user);
+            var company = _CompanyService.GetById(id);
+            return View(company);
         }
         catch (ResourceNotFoundException ex)
         {
@@ -95,13 +90,13 @@ public class UsersController : Controller
         }
     }
 
-	[HttpDelete("{id}")]
+	[HttpPost]
 	[ValidateAntiForgeryToken]
-    public ActionResult Delete(Guid id, UserRequestDto dto)
+    public async Task<ActionResult> Delete(Guid id, CompanyRequestDto dto)
     {
         try
         {
-            _UserService.DeleteById(id);
+			_CompanyService.DeleteById(id);
             return RedirectToAction(nameof(Index));
         }
         catch (ResourceNotFoundException ex)

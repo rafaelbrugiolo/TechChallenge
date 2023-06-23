@@ -2,10 +2,10 @@
 
 namespace FidelityCard.Presentation.Controllers;
 
-public class PromoController : Controller
+public class PromosController : Controller
 {
 
-	public ActionResult Promo()
+	public ActionResult Promos()
 	{
 		return View();
 	}

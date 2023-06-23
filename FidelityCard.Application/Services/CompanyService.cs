@@ -56,7 +56,7 @@ public class CompanyService : ICompanyService
     {
         var company = _repository.Read(id);
         if (company is null)
-            throw new ResourceNotFoundException($"User {id} not found.");
+            throw new ResourceNotFoundException($"Company {id} not found.");
 
         company.IsRemoved = true;
 
@@ -67,6 +67,7 @@ public class CompanyService : ICompanyService
     public IEnumerable<CompanyResponseDto> GetAll()
     {
         foreach (var company in _repository.List())
+            if (company.IsRemoved == false) // ADICIONADO POR RC 23/06
             yield return _mapper.Map<CompanyResponseDto>(company);
     }
 }

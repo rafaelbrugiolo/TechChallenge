@@ -3,3 +3,10 @@
 
 // Write your JavaScript code.
 
+// Unhidding in HTML
+$(document).ready(function () {
+    $(".unhideFunctions").change(function () {
+
+        $(".initiallyHidden").show(20);
+    });
+});

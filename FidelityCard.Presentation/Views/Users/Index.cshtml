@@ -5,7 +5,7 @@
     ViewData["Title"] = "Users";
 }
 
-<h1>Registered Users</h1>
+<h1>Registered USERS</h1>
 
 <div class="d-grid gap-2">
     <a asp-action="Create"><button class="btn btn-secondary" type="button"> - Register a New User - </button></a>
@@ -17,9 +17,7 @@
             <th>
                 Name
             </th>
-            <th>
-                Date Of Birth
-            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -31,9 +29,9 @@
                     @item.Name
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Edit</button></a> |
-                    <a asp-action="Details" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Details</button></a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Delete</button></a>
+                    <a asp-controller="Users" asp-action="Edit" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Edit</button></a> |
+                    <a asp-controller="Users" asp-action="Details" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Details</button></a> |
+                    <a asp-controller="Users" asp-action="Delete" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Delete</button></a>
                 </td>
             </tr>
     }

@@ -1,31 +1,37 @@
 ﻿@using FidelityCard.Application.Dtos.Response;
-@model UserResponseDto
+@model CompanyResponseDto
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete a USER</h1>
+<h1>Delete a COMPANY</h1>
 
 <h3>This action will permanently delete the registry below</h3>
 <div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-           Name:
+            Company's Registered Name:
         </dt>
         <dd class="col-sm-10">
-            @Model.Name
+            @Html.DisplayFor(model => model.CompanyName)
         </dd>
         <dt class="col-sm-2">
-            Email:
+            Company's Trade Name:
         </dt>
-                <dd class="col-sm-10">
-            @Model.Email
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TradeName)
+        </dd>
+        <dt class="col-sm-2">
+            CNPJ:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cnpj)
         </dd>
     </dl>
 
-    <form asp-controller="Users" asp-action="Delete">
+    <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger btn-sm" /> |
         <a asp-action="Index"><button type="button" class="btn btn-outline-primary btn-sm">Return to the list</button></a>
