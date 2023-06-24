@@ -34,11 +34,13 @@ public class PromosController : Controller
     }
     public ActionResult Create()
     { 
-        ViewModel model = new ViewModel();
-        model.Companies = _CompanyService.GetAll().ToList();
-        model.Users = _UserService.GetAll().ToList();
+        var companies = _CompanyService.GetAll().ToList();
+        var users = _UserService.GetAll().ToList();
 
-        return View(model);
+        ViewBag.Companies = companies;
+        ViewBag.Users = users;
+
+        return View();
     }
 
     [HttpPost]
@@ -115,12 +117,6 @@ public class PromosController : Controller
         {
             return NotFound();
         }
-    }
-
-    public class ViewModel
-	{
-		public List<CompanyResponseDto> Companies { get; set; }
-		public List<UserResponseDto> Users { get; set; }
     }
 
 }

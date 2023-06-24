@@ -1,14 +1,10 @@
-﻿@using FidelityCard.Application.Dtos.Response;
-
+﻿@using FidelityCard.Application.Dtos.Request;
+@model PromoRequestDto;
 
 @{
 	ViewData["Title"] = "Create a new Promotion";
 }
 
-@{
-	IEnumerable<CompanyResponseDto> companies = ViewData["Companies"] as IEnumerable<CompanyResponseDto>;
-	IEnumerable<UserResponseDto> users = ViewData["Users"] as IEnumerable<UserResponseDto>;
-}
 
 <h1>Create a New Promotion</h1>
 
@@ -28,7 +24,7 @@
 		
 		<select name="CompanyId" id="CompanyId" class="unhideFunctions">
 			<option value=""></option>
-			@foreach (var item in companies)
+			@foreach (var item in ViewBag.Companies)
 			{
 				<option value="@item.Id">@item.TradeName</option>
 			}
@@ -36,7 +32,7 @@
 
 		<select name="UserId" id="UserId" class="unhideFunctions">
 			<option value=""></option>
-			@foreach (var item in users)
+			@foreach (var item in ViewBag.Users)
 			{
 				<option value="@item.Id">@item.Name</option>
 			}

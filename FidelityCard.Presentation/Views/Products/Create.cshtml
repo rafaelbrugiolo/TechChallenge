@@ -1,6 +1,6 @@
-﻿@using FidelityCard.Application.Dtos.Response;
+﻿@using FidelityCard.Application.Dtos.Request;
 
-@model IEnumerable<CompanyResponseDto>;
+@model ProductRequestDto;
 
 @{
 	ViewData["Title"] = "Create a new Product";
@@ -24,7 +24,7 @@
 
 		<select name="CompanyId" id="CompanyId" class="unhideFunctions">
 			<option value=""></option>
-			@foreach (var item in Model)
+			@foreach (var item in ViewBag.Companies)
 			{
 				<option value="@item.Id">@item.TradeName</option>
 			}
@@ -32,8 +32,8 @@
 		<table class="initiallyHidden table">
 			<thead>
 				<tr>
-					<th><label for="Description">Description</label></th>
-					<th><label for="Price">Price</label></th>
+					<th><label asp-for="Description">Description</label></th>
+					<th><label asp-for="Price">Price</label></th>
 					<th><label for="AvatarImage">Avatar</label></th>
 					<th></th>
 				</tr>
@@ -41,10 +41,10 @@
 			<tbody>
 				<tr>
 					<td>
-						<input name="Description" type="text" />
-						<span validation-for="Description" class="text-danger"></span>
+						<input asp-for="Description" type="text" />
+						<span asp-validation-for="Description" class="text-danger"></span>
 					<td>
-						<input name="Price" type="text" />
+						<input asp-for="Price" type="text" />
 						<span validation-for="Price" class="text-danger"></span>
 					</td>
 

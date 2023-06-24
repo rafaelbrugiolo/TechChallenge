@@ -1,6 +1,6 @@
 ﻿@using FidelityCard.Application.Dtos.Response;
 
-@model IEnumerable<CompanyResponseDto>;
+@model UserResponseDto;
 
 @{
 	ViewData["Title"] = "Create a new User";
@@ -24,7 +24,7 @@
 		
 		<select name="CompanyId" id="CompanyId" class="unhideFunctions">
 			<option value=""></option>
-			@foreach (var item in Model)
+			@foreach (var item in ViewBag.Companies)
 			{
 				<option value="@item.Id">@item.TradeName</option>
 			}

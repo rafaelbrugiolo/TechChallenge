@@ -31,8 +31,8 @@ public class UsersController : Controller
 	public ActionResult Create()
     {
         var companies = _CompanyService.GetAll().ToArray();
-
-        return View(companies);
+        ViewBag.Companies = companies;
+        return View();
     }
 
     [HttpPost]

@@ -32,8 +32,9 @@ public class ProductsController : Controller
 	public ActionResult Create()
 	{
 		var companies = _CompanyService.GetAll().ToArray();
+		ViewBag.Companies = companies;
 
-		return View(companies);
+		return View();
 	}
 
 	[HttpPost]
