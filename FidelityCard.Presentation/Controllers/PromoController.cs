@@ -2,7 +2,7 @@
 using FidelityCard.Application.Dtos.Request;
 using FidelityCard.Application.Dtos.Response;
 using FidelityCard.Application.Interfaces;
-using FidelityCard.Application.Services;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace FidelityCard.Presentation.Controllers;
@@ -33,12 +33,12 @@ public class PromosController : Controller
         return View(promo);
     }
     public ActionResult Create()
-    {
-        dynamic 
-        List<CompanyResponseDto> companies = _CompanyService.GetAll().ToList();
-        List<UserResponseDto> users = _UserService.GetAll().ToList();
+    { 
+        ViewModel model = new ViewModel();
+        model.Companies = _CompanyService.GetAll().ToList();
+        model.Users = _UserService.GetAll().ToList();
 
-        return View(new CompaniesUsers { Companies = companies, Users = users});
+        return View(model);
     }
 
     [HttpPost]
@@ -117,8 +117,8 @@ public class PromosController : Controller
         }
     }
 
-    public class CompaniesUsers
-    {
+    public class ViewModel
+	{
 		public List<CompanyResponseDto> Companies { get; set; }
 		public List<UserResponseDto> Users { get; set; }
     }
