@@ -1,16 +1,14 @@
-﻿@using FidelityCard.Application.Dtos.Response;
-
-@model IEnumerable<CompanyResponseDto>;
+﻿
 
 @{
-	ViewData["Title"] = "Create a new Product";
+	ViewData["Title"] = "Create a new Promotion";
 }
 
-<h1>Create a New Product</h1>
+<h1>Create a New Promotion</h1>
 
 
 
-<hr />@using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+<hr />@using (Html.BeginForm("Create", "Promos", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 	@Html.AntiForgeryToken()
 
@@ -18,7 +16,7 @@
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 		<table>
 			<th>
-				<label for="companies">Choose the Company the product is being created for:</label>
+				<label for="companies">Choose the Company the promotion is being created for:</label>
 			</th>
 		</table>
 
@@ -32,20 +30,45 @@
 		<table class="initiallyHidden table">
 			<thead>
 				<tr>
+					<th><label for="Name">Name</label></th>
 					<th><label for="Description">Description</label></th>
-					<th><label for="Price">Price</label></th>
-					<th><label for="AvatarImage">Avatar</label></th>
+					<th><label for="TimesToPrize">Number of purchases to prize</label></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<input name="Name" type="text" required />
+						<span validation-for="Name" class="text-danger"></span>
+					<td>
+						<input name="Description" type="text" required />
+						<span validation-for="Description" class="text-danger"></span>
+					</td>
+					<td>
+						<input name="TimesToPrize" type="number" min="1" required />
+						<span validation-for="TimesToPrize" class="text-danger"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="initiallyHidden table">
+			<thead>
+				<tr>
+					<th><label for="From">Starting date</label></th>
+					<th><label for="To">Ending date</label></th>
+					<th><label for="AvatarImage">Image for promotion</label></th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>
-						<input name="Description" type="text" />
-						<span validation-for="Description" class="text-danger"></span>
+						<input name="From" type="datetime-local" required />
+						<span validation-for="From" class="text-danger"></span>
+					</td>
 					<td>
-						<input name="Price" type="text" />
-						<span validation-for="Price" class="text-danger"></span>
+						<input name="To" type="datetime-local" required />
+						<span validation-for="To" class="text-danger"></span>
 					</td>
 
 					<td><input name="AvatarImage" type="file" id="AvatarImage" onchange="fileCheck(this);" /></td>

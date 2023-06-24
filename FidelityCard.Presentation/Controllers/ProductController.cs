@@ -19,8 +19,8 @@ public class ProductsController : Controller
 
 	public ActionResult Index()
 	{
-		var people = _ProductService.GetAll().ToArray();
-		return View(people);
+		var products = _ProductService.GetAll().ToArray();
+		return View(products);
 	}
 
 	public ActionResult Details(Guid id)

@@ -1,0 +1,44 @@
+﻿@using FidelityCard.Application.Dtos.Response;
+@model IEnumerable<PromoResponseDto>
+
+@{
+	ViewData["Title"] = "Promotions";
+}
+
+<h1>Registered PROMOTIONS</h1>
+
+<div class="d-grid gap-2">
+	<a asp-action="Create"><button class="btn btn-secondary" type="button"> - Register a New Promotion - </button></a>
+</div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>
+				Name
+			</th>
+
+			<th>
+				Description
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.OrderBy(user => user.Name))
+		{
+			<tr>
+				<td>
+					@item.Name
+				</td>
+				<td>
+					@item.Description
+				</td>
+				<td>
+					<a asp-controller="Promos" asp-action="Edit" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Edit</button></a> |
+					<a asp-controller="Promos" asp-action="Details" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Details</button></a> |
+					<a asp-controller="Promos" asp-action="Delete" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Delete</button></a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
