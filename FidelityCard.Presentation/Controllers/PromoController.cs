@@ -34,8 +34,8 @@ public class PromosController : Controller
     }
     public ActionResult Create()
     { 
-        var companies = _CompanyService.GetAll().ToList();
-        var users = _UserService.GetAll().ToList();
+        var companies = _CompanyService.GetAll().ToArray();
+        var users = _UserService.GetAll().ToArray();
 
         ViewBag.Companies = companies;
         ViewBag.Users = users;

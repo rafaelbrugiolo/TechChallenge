@@ -16,27 +16,33 @@
 
 	<form asp-action="Create">
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-		<table>
-			<th>
-				<label for="companies">Choose the Company the promotion is being created for:</label>
-			</th>
-		</table>
-		
-		<select name="CompanyId" id="CompanyId" class="unhideFunctions">
-			<option value=""></option>
-			@foreach (var item in ViewBag.Companies)
-			{
-				<option value="@item.Id">@item.TradeName</option>
-			}
-		</select>
 
-		<select name="UserId" id="UserId" class="unhideFunctions">
-			<option value=""></option>
-			@foreach (var item in ViewBag.Users)
-			{
-				<option value="@item.Id">@item.Name</option>
-			}
-		</select>
+		<table class="table">	<!-- Table to select a USER -->
+			<thead>
+			<tr>
+				<th>
+					<label for="users">Choose the User responsible for the promotion:</label>
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<select name="UserId" id="UserId" class="unhideFunctions">
+							<option value=""></option>
+							<div id=generateUsersSelect></div>
+							@foreach (var item in ViewBag.Users)
+							{
+								<option value="@item.Id">@item.Name</option>
+							}
+						</select>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+			<div id="companyContainer"></div>
+
 		<table class="initiallyHidden table">
 			<thead>
 				<tr>
