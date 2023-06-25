@@ -24,10 +24,8 @@ function createCompanyDiv() {
 
     if (selectedUser !== '') {
         var companyDiv = document.createElement('div');
-        var userValues = selectedUser.split(',');
-        var companyId = userValues[1]; // Extract the companyId from the user value
-        companyDiv.id = 'company_' + companyId;
-        companyDiv.textContent = 'Company ID: ' + companyId;
+        companyDiv.id = selectedUser;
+        companyDiv.textContent = 'Teste Company ID: ' + selectedUser.value;
         companyContainer.appendChild(companyDiv);
     }
 }
