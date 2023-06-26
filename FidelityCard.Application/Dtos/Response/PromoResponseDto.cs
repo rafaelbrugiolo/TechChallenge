@@ -12,4 +12,8 @@ public class PromoResponseDto
 	public int TimesToPrize { get; set; }
     public DateTime From { get; set; }
     public DateTime To { get; set; }
+
+	public UserResponseDto User { get; set; }
+	public ProductResponseDto Product { get; set; }
+	public CompanyResponseDto Company { get; set; }
 }
