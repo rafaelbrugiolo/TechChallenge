@@ -85,6 +85,11 @@ public class PromoService : IPromoService
         if (promo is null)
             throw new ResourceNotFoundException($"Promo {id} not found.");
 
-        return _mapper.Map<PromoResponseDto>(promo);
+		var promoDto = _mapper.Map<PromoResponseDto>(promo);
+
+		if (!string.IsNullOrWhiteSpace(promo.ImageFileName))
+			promoDto.ImageContent = _blobStorage.DownloadBase64FileContent(PromosContainer, promo.ImageFileName);
+
+		return promoDto;
 	}
 }
