@@ -86,5 +86,16 @@ public class PromoService : IPromoService
             throw new ResourceNotFoundException($"Promo {id} not found.");
 
         return _mapper.Map<PromoResponseDto>(promo);
-    }
+	}
+
+	private string? GetBase64StringPicture(string? pictureFileName)
+	{
+		if (string.IsNullOrWhiteSpace(pictureFileName))
+			return null;
+
+		var file = _blobStorage.DownloadFile(ProductsContainer, pictureFileName);
+		using var ms = new MemoryStream();
+		file.CopyTo(ms);
+		return Convert.ToBase64String(ms.ToArray());
+	}
 }

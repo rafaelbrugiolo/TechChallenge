@@ -38,15 +38,6 @@ public class UserService : IUserService
         return user.Id;
     }
 
-    public UserResponseDto GetById(Guid id)
-    {
-        var user = _repository.Read(id);
-        if (user is null)
-            throw new ResourceNotFoundException($"User {id} not found.");
-        
-        return _mapper.Map<UserResponseDto>(user);
-	}
-
     public async Task Edit(Guid id, UserRequestDto dto, IFormFile? file)
     {
         var user = _repository.Read(id);
@@ -84,5 +75,19 @@ public class UserService : IUserService
     {
         foreach (var user in _repository.List())
             yield return _mapper.Map<UserResponseDto>(user);
+	}
+
+	public UserResponseDto GetById(Guid id)
+	{
+		var user = _repository.Read(id);
+		if (user is null)
+			throw new ResourceNotFoundException($"User {id} not found.");
+
+		var userDto = _mapper.Map<UserResponseDto>(user);
+
+		if (!string.IsNullOrWhiteSpace(user.AvatarFileName))
+            userDto.AvatarContent = _blobStorage.DownloadBase64FileContent(UsersContainer, user.AvatarFileName);
+
+        return userDto;
 	}
 }
