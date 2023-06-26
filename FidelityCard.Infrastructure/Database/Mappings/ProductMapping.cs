@@ -18,7 +18,7 @@ public class ProductMapping : BaseMapping<Product>
 
         builder.Property(p => p.Price)
             .IsRequired()
-            .HasPrecision(2)
+            .HasPrecision(18,2)
             .HasColumnType("decimal")
 			.HasColumnName("Price");
 
