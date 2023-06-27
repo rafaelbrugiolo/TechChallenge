@@ -118,5 +118,9 @@ public class PromosController : Controller
             return NotFound();
         }
     }
-
+	public ActionResult GetCompanyName(Guid companyID)
+	{
+		var company = _CompanyService.GetById(companyID);
+		return Content(company?.CompanyName ?? string.Empty);
+	}
 }

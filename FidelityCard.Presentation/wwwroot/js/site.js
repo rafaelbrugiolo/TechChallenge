@@ -12,20 +12,30 @@ $(document).ready(function () {
 });
 
 // Creating a company information based on the choice of a user in Promotions
-document.addEventListener('DOMContentLoaded', function () {
-    var userSelect = document.getElementById('UserId');
-    userSelect.addEventListener('change', createCompanyDiv);
-});
+/*
+$(document).ready(function () {
+    // Get the initial value of the users select box
+    var initialCompanyID = $('#UserId').val();
 
-function createCompanyDiv() {
-    var selectedUser = this.value;
-    var companyContainer = document.getElementById('companyContainer');
-    companyContainer.innerHTML = '';
+    // Display the initial company name
+    displayCompanyName(initialCompanyID);
 
-    if (selectedUser !== '') {
-        var companyDiv = document.createElement('div');
-        companyDiv.id = selectedUser;
-        companyDiv.textContent = 'Teste Company ID: ' + selectedUser.value;
-        companyContainer.appendChild(companyDiv);
+    // Handle the change event of the users select box
+    $('#UserId').change(function () {
+        var selectedCompanyID = $(this).val();
+        displayCompanyName(selectedCompanyID);
+    });
+
+    // Function to retrieve and display the company name based on the selected company ID
+    function displayCompanyName(companyID) {
+        $.ajax({
+            url: '/Promos/GetCompanyName',
+            type: 'GET',
+            data: { companyID: companyID },
+            success: function (result) {
+                $('#companyName').text(result);
+            }
+        });
     }
-}
+});
+*/
