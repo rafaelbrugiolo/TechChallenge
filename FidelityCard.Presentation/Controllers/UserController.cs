@@ -18,8 +18,9 @@ public class UsersController : Controller
 
     public ActionResult Index()
     {
-        var people = _UserService.GetAll().ToArray();
-        return View(people);
+        ViewBag.Users = _UserService.GetAll().ToArray(); ;
+        ViewBag.Companies = _CompanyService.GetAll().ToArray(); ;
+        return View();
     }
 
 	public async Task<ActionResult> DetailsAsync(Guid id)

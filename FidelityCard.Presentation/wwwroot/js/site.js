@@ -11,31 +11,9 @@ $(document).ready(function () {
     });
 });
 
-// Creating a company information based on the choice of a user in Promotions
-/*
 $(document).ready(function () {
-    // Get the initial value of the users select box
-    var initialCompanyID = $('#UserId').val();
+    $(".unhidePromoForm").change(function () {
 
-    // Display the initial company name
-    displayCompanyName(initialCompanyID);
-
-    // Handle the change event of the users select box
-    $('#UserId').change(function () {
-        var selectedCompanyID = $(this).val();
-        displayCompanyName(selectedCompanyID);
+        $(".promoFormHidden").show(20);
     });
-
-    // Function to retrieve and display the company name based on the selected company ID
-    function displayCompanyName(companyID) {
-        $.ajax({
-            url: '/Promos/GetCompanyName',
-            type: 'GET',
-            data: { companyID: companyID },
-            success: function (result) {
-                $('#companyName').text(result);
-            }
-        });
-    }
 });
-*/

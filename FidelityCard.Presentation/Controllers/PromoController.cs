@@ -34,10 +34,10 @@ public class PromosController : Controller
     }
     public ActionResult Create()
     { 
-        var companies = _CompanyService.GetAll().ToArray();
+        //var companies = _CompanyService.GetAll().ToArray();
         var users = _UserService.GetAll().ToArray();
 
-        ViewBag.Companies = companies;
+        //ViewBag.Companies = companies;
         ViewBag.Users = users;
 
         return View();
@@ -118,9 +118,4 @@ public class PromosController : Controller
             return NotFound();
         }
     }
-	public ActionResult GetCompanyName(Guid companyID)
-	{
-		var company = _CompanyService.GetById(companyID);
-		return Content(company?.CompanyName ?? string.Empty);
-	}
 }

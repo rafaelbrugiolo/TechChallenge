@@ -1,5 +1,6 @@
 ﻿using FidelityCard.Application.Common;
 using FidelityCard.Application.Dtos.Request;
+using FidelityCard.Application.Dtos.Response;
 using FidelityCard.Application.Interfaces;
 using FidelityCard.Application.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -115,4 +116,23 @@ public class ProductsController : Controller
 			return NotFound();
 		}
 	}
+	[HttpGet("Products/GetByCompanyId/{id}")]
+	public ActionResult GetByCompanyId(Guid id)
+	{
+		try
+		{
+			var products = _ProductService.GetAll();
+			List<ProductResponseDto> productsByCompanyId = new List<ProductResponseDto>();
+			foreach (var product in products)
+			{
+				if (product.CompanyId == id) productsByCompanyId.Add(product);
+			}
+			return Json(productsByCompanyId);
+		}
+		catch (ResourceNotFoundException ex)
+		{
+			return NotFound();
+		}
+	}
+
 }

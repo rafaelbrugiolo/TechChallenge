@@ -104,4 +104,18 @@ public class CompaniesController : Controller
             return NotFound();
         }
     }
+
+	[HttpGet("Companies/GetById/{id}")]
+	public ActionResult GetById(Guid id)
+	{
+		try
+		{
+			var company = _CompanyService.GetById(id);
+            return Content(company?.TradeName ?? string.Empty);
+		}
+		catch (ResourceNotFoundException ex)
+		{
+			return NotFound();
+		}
+	}
 }

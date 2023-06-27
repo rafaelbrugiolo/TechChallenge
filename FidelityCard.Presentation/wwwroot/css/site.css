@@ -29,6 +29,6 @@ footer {
     color: #ffffff;
     padding: 25px;
 }
-.initiallyHidden {
+.initiallyHidden, .productIdHidden, .promoFormHidden {
     display: none;
 }
