@@ -29,7 +29,7 @@ public class PromosController : Controller
 
     public async Task<ActionResult> DetailsAsync(Guid id)
     {
-        var promo = await _PromoService.GetById(id);
+        var promo = await _PromoService.GetByIdWithCompanyUserProduct(id);
         return View(promo);
     }
     public ActionResult Create()
@@ -61,11 +61,11 @@ public class PromosController : Controller
     }
 
     [HttpGet("Promos/Edit/{id}")]
-    public ActionResult Edit(Guid id)
+    public async Task<ActionResult> EditAsync(Guid id)
     {
         try
         {
-            var promo = _PromoService.GetById(id);
+            var promo = await _PromoService.GetByIdWithCompanyUserProduct(id);
             return View(promo);
         }
         catch (ResourceNotFoundException ex)
@@ -91,11 +91,11 @@ public class PromosController : Controller
     }
 
     [HttpGet("Promos/Delete/{id}")]
-    public ActionResult Delete(Guid id)
+    public async Task<ActionResult> Delete(Guid id)
     {
         try
         {
-            var user = _PromoService.GetById(id);
+            var user = await _PromoService.GetByIdWithCompanyUserProduct(id);
             return View(user);
         }
         catch (ResourceNotFoundException ex)

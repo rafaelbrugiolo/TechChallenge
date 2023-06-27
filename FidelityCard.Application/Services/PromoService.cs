@@ -79,7 +79,7 @@ public class PromoService : IPromoService
             yield return _mapper.Map<PromoResponseDto>(promo);
     }
 
-    public async Task<PromoResponseDto> GetById(Guid id)
+    public async Task<PromoResponseDto> GetByIdWithCompanyUserProduct(Guid id)
     {
         var promo = await _repository.GetByIdWithCompanyUserProduct(id);
         if (promo is null)

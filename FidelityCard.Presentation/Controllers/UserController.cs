@@ -54,11 +54,11 @@ public class UsersController : Controller
     }
 
 	[HttpGet("Users/Edit/{id}")]
-	public ActionResult Edit(Guid id)
+	public async Task<ActionResult> EditAsync(Guid id)
     {
         try
         {
-            var user = _UserService.GetByIdWithCompany(id);
+            var user = await _UserService.GetByIdWithCompany(id);
             return View(user);
         }
         catch (ResourceNotFoundException ex)
@@ -84,11 +84,11 @@ public class UsersController : Controller
     }
 
 	[HttpGet("Users/Delete/{id}")]
-	public ActionResult Delete(Guid id)
+	public async Task<ActionResult> DeleteAsync(Guid id)
     {
         try
         {
-            var user = _UserService.GetByIdWithCompany(id);
+            var user = await _UserService.GetByIdWithCompany(id);
             return View(user);
         }
         catch (ResourceNotFoundException ex)

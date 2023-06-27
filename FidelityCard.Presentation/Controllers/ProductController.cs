@@ -26,7 +26,7 @@ public class ProductsController : Controller
 
 	public async Task<ActionResult> DetailsAsync(Guid id)
 	{
-		var product = await _ProductService.GetById(id);
+		var product = await _ProductService.GetByIdWithCompany(id);
 		return View(product);
 	}
 
@@ -59,11 +59,11 @@ public class ProductsController : Controller
 	}
 
 	[HttpGet("Products/Edit/{id}")]
-	public ActionResult Edit(Guid id)
+	public async Task<ActionResult> EditAsync(Guid id)
 	{
 		try
 		{
-			var product = _ProductService.GetById(id);
+			var product = await _ProductService.GetByIdWithCompany(id);
 			return View(product);
 		}
 		catch (ResourceNotFoundException ex)
@@ -89,11 +89,11 @@ public class ProductsController : Controller
 	}
 
 	[HttpGet("Products/Delete/{id}")]
-	public ActionResult Delete(Guid id)
+	public async Task<ActionResult> DeleteAsync(Guid id)
 	{
 		try
 		{
-			var product = _ProductService.GetById(id);
+			var product = await _ProductService.GetByIdWithCompany(id);
 			return View(product);
 		}
 		catch (ResourceNotFoundException ex)
