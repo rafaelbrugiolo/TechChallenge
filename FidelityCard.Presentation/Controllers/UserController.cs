@@ -22,9 +22,9 @@ public class UsersController : Controller
         return View(people);
     }
 
-	public ActionResult Details(Guid id)
+	public async Task<ActionResult> DetailsAsync(Guid id)
     {
-        var user = _UserService.GetById(id);
+        var user = await _UserService.GetByIdWithCompany(id);
         return View(user);
     }
 
@@ -57,7 +57,7 @@ public class UsersController : Controller
     {
         try
         {
-            var user = _UserService.GetById(id);
+            var user = _UserService.GetByIdWithCompany(id);
             return View(user);
         }
         catch (ResourceNotFoundException ex)
@@ -87,7 +87,7 @@ public class UsersController : Controller
     {
         try
         {
-            var user = _UserService.GetById(id);
+            var user = _UserService.GetByIdWithCompany(id);
             return View(user);
         }
         catch (ResourceNotFoundException ex)

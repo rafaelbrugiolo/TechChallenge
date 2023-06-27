@@ -7,4 +7,6 @@ public class CustomerResponseDto
     public string Email { get; set; }
     public string Birthdate { get; set; }
     public string ContactPhone { get; set; }
+
+	public CompanyResponseDto Company { get; set; }
 }

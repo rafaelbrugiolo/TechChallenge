@@ -8,13 +8,13 @@ namespace FidelityCard.Presentation.Controllers;
 
 public class ProductsController : Controller
 {
-    private readonly IProductService _ProductService;
-    private readonly ICompanyService _CompanyService;
+	private readonly IProductService _ProductService;
+	private readonly ICompanyService _CompanyService;
 
-    public ProductsController(IProductService ProductService, ICompanyService CompanyService)
-    {
+	public ProductsController(IProductService ProductService, ICompanyService CompanyService)
+	{
 		_ProductService = ProductService;
-        _CompanyService = CompanyService;
+		_CompanyService = CompanyService;
 	}
 
 	public ActionResult Index()
@@ -23,9 +23,9 @@ public class ProductsController : Controller
 		return View(products);
 	}
 
-	public ActionResult Details(Guid id)
+	public async Task<ActionResult> DetailsAsync(Guid id)
 	{
-		var product = _ProductService.GetById(id);
+		var product = await _ProductService.GetById(id);
 		return View(product);
 	}
 
@@ -48,9 +48,12 @@ public class ProductsController : Controller
 
 			return RedirectToAction(nameof(Index));
 		}
-		catch
+		catch (Exception ex)
 		{
-			return View();
+			ViewData["Error"] = ex.Message;
+			var companies = _CompanyService.GetAll().ToArray();
+			ViewBag.Companies = companies;
+			return View(dto);
 		}
 	}
 

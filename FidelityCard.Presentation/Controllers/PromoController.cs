@@ -27,9 +27,9 @@ public class PromosController : Controller
         return View(promos);
     }
 
-    public ActionResult Details(Guid id)
+    public async Task<ActionResult> DetailsAsync(Guid id)
     {
-        var promo = _PromoService.GetById(id);
+        var promo = await _PromoService.GetById(id);
         return View(promo);
     }
     public ActionResult Create()

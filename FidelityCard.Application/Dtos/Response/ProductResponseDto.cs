@@ -7,4 +7,6 @@ public class ProductResponseDto
     public decimal Price { get; set; }
     public string? PictureFileName { get; set; }
     public string? PictureContent { get; set; }
+
+	public CompanyResponseDto Company { get; set; }
 }

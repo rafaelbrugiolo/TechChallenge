@@ -77,9 +77,9 @@ public class UserService : IUserService
             yield return _mapper.Map<UserResponseDto>(user);
 	}
 
-	public UserResponseDto GetById(Guid id)
+	public async Task<UserResponseDto> GetByIdWithCompany(Guid id)
 	{
-		var user = _repository.Read(id);
+		var user = await _repository.GetByIdWithCompany(id);
 		if (user is null)
 			throw new ResourceNotFoundException($"User {id} not found.");
 

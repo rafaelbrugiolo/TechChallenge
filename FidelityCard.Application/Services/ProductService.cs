@@ -78,9 +78,9 @@ public class ProductService : IProductService
             yield return _mapper.Map<ProductResponseDto>(product);
     }
 
-    public ProductResponseDto GetById(Guid id)
+    public async Task<ProductResponseDto> GetById(Guid id)
 	{
-		var product = _repository.Read(id);
+		var product = await _repository.GetByIdWithCompany(id);
 		if (product is null)
 			throw new ResourceNotFoundException($"Product {id} not found.");
 
