@@ -17,19 +17,17 @@
 	<form asp-action="Create">
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-		<table class="table">	<!-- Table to select a USER -->
-			<thead>
+		<!--    SELECT A USER - BEGINING    -->
+		<table class="table">	
 			<tr>
 				<th>
 					<label for="users">Choose the User responsible for the promotion:</label>
 				</th>
 			</tr>
-			</thead>
-			<tbody>
 				<tr>
 					<td>
-						<select name="UserId" id="UserId" class="unhideFunctions">
-							<option value=""></option>
+					<select name="UserId" id="UserId" class="unhideFunctions form-control" onchange="initializeUserSelection()" required>
+							<option value=""> --  Choose a user  -- </option>
 							<div id=generateUsersSelect></div>
 							@foreach (var user in ViewBag.Users)
 							{
@@ -38,15 +36,33 @@
 						</select>
 					</td>
 				</tr>
-			</tbody>
+			<!--    SELECT A USER - ENDING    -->
+			<tfoot>
+				<tr>
+					<th><h5 class="initiallyHidden">Promotion being created for the Company:</h5></th>
+				</tr>
+				<tr>
+					<td><div id="companyName" class="text-center fs-5 bg-secondary bg-gradient text-white bg-opacity-75 unhideProductId"></div></td>
+				</tr>
+			</tfoot>
 		</table>
 
-			<div id="companyName"></div>
 
-		<table class="initiallyHidden table">
+		<!--    SELECT A Product - BEGINING    -->
+		<div class="initiallyHidden">
+			<select id="ProductId" class="unhidePromoForm form-control form-control-lg"></select>
+			<hr />
+
+			<h4 class="text-center">Please, fill up the details of the new Promotion:</h4>
+		</div>
+		<!--    SELECT A Product - ENDING    -->
+
+
+		<!--    FILL UP PROMO - BEGINING    -->
+		<table class="promoFormHidden table">
 			<thead>
 				<tr>
-					<th><label for="Name">Name</label></th>
+					<th><label for="Name">Promotion Name</label></th>
 					<th><label for="Description">Description</label></th>
 					<th><label for="TimesToPrize">Number of purchases to prize</label></th>
 				</tr>
@@ -67,7 +83,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<table class="initiallyHidden table">
+		<table class="promoFormHidden table">
 			<thead>
 				<tr>
 					<th><label for="From">Starting date</label></th>
@@ -92,6 +108,7 @@
 				</tr>
 			</tbody>
 		</table>
+		<!--    FILL UP PROMO - ENDING    -->
 	</form>
 
 	<div class="pt-4">
@@ -110,7 +127,11 @@
 		}
 	</script>
 
+
+	<script src="@Url.Content("~/js/PromoCompany.js")"></script>
+
 	@{
 		await Html.RenderPartialAsync("_ValidationScriptsPartial");
 	}
+
 }

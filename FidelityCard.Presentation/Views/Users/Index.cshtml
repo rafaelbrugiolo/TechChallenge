@@ -5,6 +5,7 @@
 	ViewData["Title"] = "Users";
 }
 
+
 <h1>Registered USERS</h1>
 
 <div class="d-grid gap-2">
@@ -17,21 +18,36 @@
 			<th>
 				Name
 			</th>
+			<th>
+				Email
+			</th>
+			<th>
+				Company
+			</th>
 
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var item in Model.OrderBy(user => user.Name))
+		@foreach (var user in ViewBag.Users)
 		{
 			<tr>
 				<td>
-					@item.Name
+					@user.Name
 				</td>
 				<td>
-					<a asp-controller="Users" asp-action="Edit" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Edit</button></a> |
-					<a asp-controller="Users" asp-action="Details" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Details</button></a> |
-					<a asp-controller="Users" asp-action="Delete" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Delete</button></a>
+					@user.Email
+				</td>
+				<td>@foreach (var company in ViewBag.Companies)
+					{
+						if (user.CompanyId == company.Id)
+							@company.TradeName
+					}
+					</td>
+				<td>
+					<a asp-controller="Users" asp-action="Edit" asp-route-id="@user.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Edit</button></a> |
+					<a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Details</button></a> |
+					<a asp-controller="Users" asp-action="Delete" asp-route-id="@user.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Delete</button></a>
 				</td>
 			</tr>
 		}
