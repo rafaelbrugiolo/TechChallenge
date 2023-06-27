@@ -10,11 +10,9 @@ public class PromoRepository : BaseRepository<Promo>, IPromoRepository
     {
 	}
 
-	public async Task<Promo?> GetByIdWithCompanyUserProduct(Guid id)
+	public async Task<Promo?> GetByIdWithProduct(Guid id)
 	{
 		return await DbSet
-			.Include(u => u.Company)
-			.Include(u => u.User)
 			.Include(u => u.Product)
 			.FirstOrDefaultAsync(u => u.Id == id);
 	}

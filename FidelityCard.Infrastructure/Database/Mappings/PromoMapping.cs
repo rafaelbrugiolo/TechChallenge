@@ -8,14 +8,6 @@ public class PromoMapping : BaseMapping<Promo>
     public override string TableName => "Promo";
     protected override void EntityMap(EntityTypeBuilder<Promo> builder)
     {
-        builder.Property(p => p.CompanyId)
-            .IsRequired()
-            .HasColumnName("CompanyId");
-
-        builder.Property(p => p.UserId)
-            .IsRequired()
-            .HasColumnName("UserId");
-
         builder.Property(p => p.ProductId)
             .IsRequired()
             .HasColumnName("ProductId");

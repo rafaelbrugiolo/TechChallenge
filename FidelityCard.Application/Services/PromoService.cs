@@ -52,7 +52,7 @@ public class PromoService : IPromoService
 
     public async Task Edit(Guid id, PromoRequestDto dto, IFormFile? file)
     {
-        var promo = _repository.Read(id);
+        var promo = await _repository.GetByIdWithProduct(id);
         if (promo is null)
             throw new ResourceNotFoundException($"Product {id} not found.");
 
@@ -61,7 +61,7 @@ public class PromoService : IPromoService
 
         var fileName = file is not null
             ? await _blobStorage.UploadFile(PromosContainer, file.OpenReadStream(), file.FileName)
-            : null;
+            : dto.ImageFileName;
 
         promo.Name = dto.Name;
         promo.Description = dto.Description;
@@ -81,7 +81,7 @@ public class PromoService : IPromoService
 
     public async Task<PromoResponseDto> GetByIdWithCompanyUserProduct(Guid id)
     {
-        var promo = await _repository.GetByIdWithCompanyUserProduct(id);
+        var promo = await _repository.GetByIdWithProduct(id);
         if (promo is null)
             throw new ResourceNotFoundException($"Promo {id} not found.");
 

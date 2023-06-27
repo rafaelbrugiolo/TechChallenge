@@ -62,7 +62,7 @@ public class ProductService : IProductService
 
         var fileName = file is not null
             ? await _blobStorage.UploadFile(ProductsContainer, file.OpenReadStream(), file.FileName)
-            : null;
+            : dto.PictureFileName;
 
         product.Description = dto.Description;
         product.Price = dto.Price;
@@ -78,9 +78,9 @@ public class ProductService : IProductService
             yield return _mapper.Map<ProductResponseDto>(product);
     }
 
-    public async Task<ProductResponseDto> GetByIdWithCompany(Guid id)
+	public ProductResponseDto GetById(Guid id)
 	{
-		var product = await _repository.GetByIdWithCompany(id);
+		var product = _repository.Read(id);
 		if (product is null)
 			throw new ResourceNotFoundException($"Product {id} not found.");
 
@@ -89,6 +89,6 @@ public class ProductService : IProductService
 		if (!string.IsNullOrWhiteSpace(product.PictureFileName))
 			productDto.PictureContent = _blobStorage.DownloadBase64FileContent(ProductsContainer, product.PictureFileName);
 
-        return productDto;
+		return productDto;
 	}
 }
