@@ -79,12 +79,17 @@ public class PromoService : IPromoService
             yield return _mapper.Map<PromoResponseDto>(promo);
     }
 
-    public PromoResponseDto GetById(Guid id)
+    public async Task<PromoResponseDto> GetById(Guid id)
     {
-        var promo = _repository.Read(id);
+        var promo = await _repository.GetByIdWithCompanyUserProduct(id);
         if (promo is null)
             throw new ResourceNotFoundException($"Promo {id} not found.");
 
-        return _mapper.Map<PromoResponseDto>(promo);
-    }
+		var promoDto = _mapper.Map<PromoResponseDto>(promo);
+
+		if (!string.IsNullOrWhiteSpace(promo.ImageFileName))
+			promoDto.ImageContent = _blobStorage.DownloadBase64FileContent(PromosContainer, promo.ImageFileName);
+
+		return promoDto;
+	}
 }

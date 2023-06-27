@@ -78,12 +78,17 @@ public class ProductService : IProductService
             yield return _mapper.Map<ProductResponseDto>(product);
     }
 
-    public ProductResponseDto GetById(Guid id)
-    {
-        var poroduct = _repository.Read(id);
-        if (poroduct is null)
-            throw new ResourceNotFoundException($"Product {id} not found.");
+    public async Task<ProductResponseDto> GetById(Guid id)
+	{
+		var product = await _repository.GetByIdWithCompany(id);
+		if (product is null)
+			throw new ResourceNotFoundException($"Product {id} not found.");
 
-        return _mapper.Map<ProductResponseDto>(poroduct);
-    }
+		var productDto = _mapper.Map<ProductResponseDto>(product);
+
+		if (!string.IsNullOrWhiteSpace(product.PictureFileName))
+			productDto.PictureContent = _blobStorage.DownloadBase64FileContent(ProductsContainer, product.PictureFileName);
+
+        return productDto;
+	}
 }

@@ -28,7 +28,22 @@ public class AzureBlobStorage : IStorage
         }
     }
 
-    public Stream DownloadFile(string container, string fileName)
+	public string? DownloadBase64FileContent(string container, string fileName)
+	{
+        try
+		{
+			var file = DownloadFile(container, fileName);
+			using var ms = new MemoryStream();
+			file.CopyTo(ms);
+			return Convert.ToBase64String(ms.ToArray());
+		}
+        catch(Exception ex)
+        {
+            return null;
+        }
+	}
+
+	public Stream DownloadFile(string container, string fileName)
     {
         try
         {

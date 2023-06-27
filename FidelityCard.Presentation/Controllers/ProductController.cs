@@ -23,9 +23,9 @@ public class ProductsController : Controller
 		return View(products);
 	}
 
-	public ActionResult Details(Guid id)
+	public async Task<ActionResult> DetailsAsync(Guid id)
 	{
-		var product = _ProductService.GetById(id);
+		var product = await _ProductService.GetById(id);
 		return View(product);
 	}
 

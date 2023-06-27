@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FidelityCard.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230621161353_Initial")]
+    [Migration("20230626133221_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -111,7 +111,7 @@ namespace FidelityCard.Infrastructure.Migrations
                         .HasColumnName("PictureFileName");
 
                     b.Property<decimal>("Price")
-                        .HasPrecision(2)
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal")
                         .HasColumnName("Price");
 

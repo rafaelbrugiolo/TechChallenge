@@ -108,7 +108,7 @@ namespace FidelityCard.Infrastructure.Migrations
                         .HasColumnName("PictureFileName");
 
                     b.Property<decimal>("Price")
-                        .HasPrecision(2)
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal")
                         .HasColumnName("Price");
 
