@@ -49,7 +49,7 @@ public class UserService : IUserService
 
         var fileName = file is not null
             ? await _blobStorage.UploadFile(UsersContainer, file.OpenReadStream(), file.FileName)
-            : null;
+            : user.AvatarFileName;
 
         user.Name = dto.Name;
         user.AvatarFileName = fileName;
