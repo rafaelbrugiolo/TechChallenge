@@ -19,15 +19,8 @@
 				<label for="companies">Choose the Company the product is being created for:</label>
 			</th>
 		</table>
-
-		<select name="CompanyId" id="CompanyId" class="unhideFunctions">
-			<option value=""></option>
-			@foreach (var item in ViewBag.Companies)
-			{
-				<option value="@item.Id">@item.TradeName</option>
-			}
-		</select>
-		<table class="initiallyHidden table">
+		
+		<table class="table">
 			<thead>
 				<tr>
 					<th><label asp-for="Description">Description</label></th>
