@@ -1,6 +1,5 @@
 ﻿using FidelityCard.Application.Common;
 using FidelityCard.Application.Dtos.Request;
-using FidelityCard.Application.Dtos.Response;
 using FidelityCard.Application.Interfaces;
 
 using Microsoft.AspNetCore.Mvc;
@@ -10,15 +9,11 @@ namespace FidelityCard.Presentation.Controllers;
 public class PromosController : Controller
 {
     private readonly IPromoService _PromoService;
-    private readonly ICompanyService _CompanyService;
-    private readonly IUserService _UserService;
 
 
-	public PromosController(IPromoService PromoService, ICompanyService CompanyService, IUserService userService)
+	public PromosController(IPromoService PromoService)
 	{
 		_PromoService = PromoService;
-		_CompanyService = CompanyService;
-		_UserService = userService;
 	}
 
 	public ActionResult Index()
@@ -33,13 +28,7 @@ public class PromosController : Controller
         return View(promo);
     }
     public ActionResult Create()
-    { 
-        //var companies = _CompanyService.GetAll().ToArray();
-        var users = _UserService.GetAll().ToArray();
-
-        //ViewBag.Companies = companies;
-        ViewBag.Users = users;
-
+    {
         return View();
     }
 

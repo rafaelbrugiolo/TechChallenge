@@ -2,7 +2,6 @@
 using FidelityCard.Application.Dtos.Request;
 using FidelityCard.Application.Dtos.Response;
 using FidelityCard.Application.Interfaces;
-using FidelityCard.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FidelityCard.Presentation.Controllers;
@@ -10,12 +9,10 @@ namespace FidelityCard.Presentation.Controllers;
 public class ProductsController : Controller
 {
 	private readonly IProductService _ProductService;
-	private readonly ICompanyService _CompanyService;
 
-	public ProductsController(IProductService ProductService, ICompanyService CompanyService)
+	public ProductsController(IProductService ProductService)
 	{
 		_ProductService = ProductService;
-		_CompanyService = CompanyService;
 	}
 
 	public ActionResult Index()
@@ -24,17 +21,14 @@ public class ProductsController : Controller
 		return View(products);
 	}
 
-	public async Task<ActionResult> DetailsAsync(Guid id)
+	public ActionResult DetailsAsync(Guid id)
 	{
-		var product = await _ProductService.GetByIdWithCompany(id);
+		var product = _ProductService.GetById(id);
 		return View(product);
 	}
 
 	public ActionResult Create()
 	{
-		var companies = _CompanyService.GetAll().ToArray();
-		ViewBag.Companies = companies;
-
 		return View();
 	}
 
@@ -52,18 +46,16 @@ public class ProductsController : Controller
 		catch (Exception ex)
 		{
 			ViewData["Error"] = ex.Message;
-			var companies = _CompanyService.GetAll().ToArray();
-			ViewBag.Companies = companies;
 			return View(dto);
 		}
 	}
 
 	[HttpGet("Products/Edit/{id}")]
-	public async Task<ActionResult> EditAsync(Guid id)
+	public ActionResult EditAsync(Guid id)
 	{
 		try
 		{
-			var product = await _ProductService.GetByIdWithCompany(id);
+			var product = _ProductService.GetById(id);
 			return View(product);
 		}
 		catch (ResourceNotFoundException ex)
@@ -89,11 +81,11 @@ public class ProductsController : Controller
 	}
 
 	[HttpGet("Products/Delete/{id}")]
-	public async Task<ActionResult> DeleteAsync(Guid id)
+	public ActionResult DeleteAsync(Guid id)
 	{
 		try
 		{
-			var product = await _ProductService.GetByIdWithCompany(id);
+			var product = _ProductService.GetById(id);
 			return View(product);
 		}
 		catch (ResourceNotFoundException ex)

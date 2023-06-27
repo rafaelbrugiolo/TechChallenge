@@ -55,16 +55,16 @@ public class CustomerService : ICustomerService
 
     public IEnumerable<CustomerResponseDto> GetAll()
     {
-        foreach (var company in _repository.List())
-            yield return _mapper.Map<CustomerResponseDto>(company);
+        foreach (var customer in _repository.List())
+            yield return _mapper.Map<CustomerResponseDto>(customer);
     }
 
     public CustomerResponseDto GetById(Guid id)
     {
-        var company = _repository.Read(id);
-        if (company is null)
+        var customer = _repository.Read(id);
+        if (customer is null)
             throw new ResourceNotFoundException($"Customer {id} not found.");
 
-        return _mapper.Map<CustomerResponseDto>(company);
+        return _mapper.Map<CustomerResponseDto>(customer);
     }
 }

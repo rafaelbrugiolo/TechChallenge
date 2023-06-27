@@ -8,10 +8,6 @@ public class CustomerMapping : BaseMapping<Customer>
     public override string TableName => "Customer";
     protected override void EntityMap(EntityTypeBuilder<Customer> builder)
     {
-        builder.Property(p => p.CompanyId)
-            .IsRequired()
-            .HasColumnName("CompanyId");
-
         builder.Property(p => p.Name)
             .IsRequired()
             .HasColumnName("Name");
