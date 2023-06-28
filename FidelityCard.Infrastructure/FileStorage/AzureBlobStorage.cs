@@ -79,7 +79,7 @@ public class AzureBlobStorage : IStorage
 			var fullFileName = string.Format($"{fileName}.{fileExtension}", fileName, fileExtension);
 
 			var blobClient = containerClient.GetBlobClient(fullFileName);
-			await blobClient.UploadAsync(content, true);
+			await blobClient.UploadAsync(content, false);
 
 			return fullFileName;
 		}

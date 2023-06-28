@@ -66,12 +66,12 @@ public class ProductsController : Controller
 
 	[HttpPost]
 	[ValidateAntiForgeryToken]
-	public ActionResult Edit(Guid id, ProductRequestDto dto)
+	public async Task<ActionResult> Edit(Guid id, ProductRequestDto dto)
 	{
 		try
-		{
-			var file = Request.Form.Files["AvatarImage"];
-			_ProductService.Edit(id, dto, file);
+        {
+            var file = Request.Form.Files["AvatarImage"];
+            await _ProductService.Edit(id, dto, file);
 			return RedirectToAction(nameof(Index));
 		}
 		catch (ResourceNotFoundException ex)

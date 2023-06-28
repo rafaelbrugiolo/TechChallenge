@@ -24,12 +24,10 @@ public class PromoService : IPromoService
 
     public async Task<Guid> Create(PromoRequestDto dto, IFormFile? file)
     {
-        var fileName = file is not null
-            ? await _blobStorage.UploadFile(PromosContainer, file.OpenReadStream(), file.FileName)
-            : null;
-
         var promo = _mapper.Map<Promo>(dto);
-        promo.ImageFileName = fileName;
+        
+        if (file is not null)
+            promo.ImageFileName = await _blobStorage.UploadFile(PromosContainer, file.OpenReadStream(), file.FileName);
 
         _repository.Insert(promo);
         _repository.SaveChanges();
@@ -56,16 +54,17 @@ public class PromoService : IPromoService
         if (promo is null)
             throw new ResourceNotFoundException($"Product {id} not found.");
 
-        if (!string.IsNullOrWhiteSpace(promo.ImageFileName))
-            _blobStorage.DeleteFile(PromosContainer, promo.ImageFileName);
+        if (file is not null)
+        {
+            if (!string.IsNullOrWhiteSpace(promo.ImageFileName))
+                _blobStorage.DeleteFile(PromosContainer, promo.ImageFileName);
 
-        var fileName = file is not null
-            ? await _blobStorage.UploadFile(PromosContainer, file.OpenReadStream(), file.FileName)
-            : dto.ImageFileName;
+            var newFileName = await _blobStorage.UploadFile(PromosContainer, file.OpenReadStream(), file.FileName);
+            promo.ImageFileName = newFileName;
+        }
 
         promo.Name = dto.Name;
         promo.Description = dto.Description;
-        promo.ImageFileName = fileName;
         promo.From = dto.From;
         promo.To = dto.To;
 

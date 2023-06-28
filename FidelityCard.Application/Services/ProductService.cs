@@ -25,12 +25,10 @@ public class ProductService : IProductService
 
     public async Task<Guid> Create(ProductRequestDto dto, IFormFile? file)
     {
-        var fileName = file is not null
-            ? await _blobStorage.UploadFile(ProductsContainer, file.OpenReadStream(), file.FileName)
-            : null;
-
         var product = _mapper.Map<Product>(dto);
-        product.PictureFileName = fileName;
+
+        if (file is not null)
+            product.PictureFileName = await _blobStorage.UploadFile(ProductsContainer, file.OpenReadStream(), file.FileName);
 
         _repository.Insert(product);
         _repository.SaveChanges();
@@ -57,16 +55,17 @@ public class ProductService : IProductService
         if (product is null)
             throw new ResourceNotFoundException($"Product {id} not found.");
 
-        if (!string.IsNullOrWhiteSpace(product.PictureFileName))
-            _blobStorage.DeleteFile(ProductsContainer, product.PictureFileName);
+        if (file is not null)
+        {
+            if (!string.IsNullOrWhiteSpace(product.PictureFileName))
+                _blobStorage.DeleteFile(ProductsContainer, product.PictureFileName);
 
-        var fileName = file is not null
-            ? await _blobStorage.UploadFile(ProductsContainer, file.OpenReadStream(), file.FileName)
-            : dto.PictureFileName;
+            var newFileName = await _blobStorage.UploadFile(ProductsContainer, file.OpenReadStream(), file.FileName);
+            product.PictureFileName = newFileName;
+        }
 
         product.Description = dto.Description;
         product.Price = dto.Price;
-        product.PictureFileName = fileName;
 
         _repository.Update(product);
         _repository.SaveChanges();
