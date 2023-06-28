@@ -114,12 +114,8 @@ public class ProductsController : Controller
 		try
 		{
 			var products = _ProductService.GetAll();
-			List<ProductResponseDto> productsByCompanyId = new List<ProductResponseDto>();
-			foreach (var product in products)
-			{
-				if (product.CompanyId == id) productsByCompanyId.Add(product);
-			}
-			return Json(productsByCompanyId);
+			List<ProductResponseDto> productsRes = new List<ProductResponseDto>();
+			return Json(productsRes);
 		}
 		catch (ResourceNotFoundException ex)
 		{
