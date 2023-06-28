@@ -1,0 +1,46 @@
+﻿@using FidelityCard.Application.Dtos.Response;
+@model IEnumerable<CustomerResponseDto>
+
+@{
+	ViewData["Title"] = "Products";
+}
+
+<h1>Registered PRODUCTS</h1>
+
+<div class="d-grid gap-2">
+	<a asp-action="Create"><button class="btn btn-secondary" type="button"> - Register a Product - </button></a>
+</div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th></th>
+			<th>
+				Description
+			</th>
+			<th>
+				Price
+			</th>
+
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.OrderBy(customer => customer.Name))
+		{
+			<tr>
+				<td>
+					@item.Name
+				</td>
+				<td>
+					@item.Email
+				</td>
+				<td>
+					<a asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Edit</button></a> |
+					<a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Details</button></a> |
+					<a asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Delete</button></a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

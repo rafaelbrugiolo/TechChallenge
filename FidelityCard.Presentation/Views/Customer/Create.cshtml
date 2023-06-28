@@ -1,0 +1,75 @@
+﻿@using FidelityCard.Application.Dtos.Request;
+@model CustomerRequestDto;
+
+@{
+	ViewData["Title"] = "Create a new Customer";
+}
+
+<h1>Create a New Product</h1>
+/*
+  public string Name { get; set; }
+	public string? Email { get; set; }
+	public string? Birthdate { get; set; }
+	public string? ContactPhone { get; set; }
+*/aaaaaaaaa
+
+<hr />@using (Html.BeginForm("Create", "Customer", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+
+	<form asp-action="Create">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>		
+		<table class="table">
+			<thead>
+				<tr>
+					<th><label asp-for="Name">Name</label></th>
+					<th><label asp-for="Email">Email</label></th>
+					<th><label asp-for="Birthdate">Birthdate</label></th>
+					<th><label asp-for="ContactPhone">ContactPhone</label></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<input asp-for="Name" type="text" />
+						<span asp-validation-for="Name" class="text-danger"></span>
+                    </td>
+
+					<td>
+						<input asp-for="Email" type="email" />
+						<span asp-validation-for="Email" class="text-danger"></span>
+					</td>
+
+					<td>
+						<input asp-for="Birthdate" type="text" />
+						<span asp-validation-for="Birthdate" class="text-danger"></span>
+					</td>
+
+					<td>
+						<input asp-for="ContactPhone" type="text" />
+						<span asp-validation-for="ContactPhone" class="text-danger"></span>
+					</td>
+
+					<td><input type="submit" value="Create" class="btn btn-primary" /></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+
+	<div class="pt-4">
+		<a asp-action="Index"><button type="button" class="btn btn-outline-primary btn-sm">Return to the list</button></a>
+	</div>
+}
+
+@section Scripts {
+
+	<script type="text/javascript">
+		function fileCheck(obj) {
+			var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+			if ($.inArray($(obj).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+				alert("Only '.jpeg','.jpg', '.png', '.gif', '.bmp' formats are allowed.");
+			}
+		}
+	</script>
+}
