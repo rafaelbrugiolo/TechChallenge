@@ -5,13 +5,7 @@
 	ViewData["Title"] = "Create a new Customer";
 }
 
-<h1>Create a New Product</h1>
-/*
-  public string Name { get; set; }
-	public string? Email { get; set; }
-	public string? Birthdate { get; set; }
-	public string? ContactPhone { get; set; }
-*/aaaaaaaaa
+<h1>Create a New Customer</h1>
 
 <hr />@using (Html.BeginForm("Create", "Customer", FormMethod.Post))
 {
@@ -24,8 +18,8 @@
 				<tr>
 					<th><label asp-for="Name">Name</label></th>
 					<th><label asp-for="Email">Email</label></th>
-					<th><label asp-for="Birthdate">Birthdate</label></th>
-					<th><label asp-for="ContactPhone">ContactPhone</label></th>
+					<th><label asp-for="Birthdate">Date of Birth</label></th>
+					<th><label asp-for="ContactPhone">Phone Number</label></th>
 					<th></th>
 				</tr>
 			</thead>
