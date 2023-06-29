@@ -1,4 +1,5 @@
 ﻿@using FidelityCard.Application.Dtos.Request;
+@using FidelityCard.Application.Dtos.Response;
 @model PromoRequestDto;
 
 @{
@@ -9,7 +10,6 @@
 <h1>Create a New Promotion</h1>
 
 
-
 <hr />@using (Html.BeginForm("Create", "Promos", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 	@Html.AntiForgeryToken()
@@ -17,97 +17,72 @@
 	<form asp-action="Create">
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-		<!--    SELECT A USER - BEGINING    -->
-		<table class="table">	
-			@*<tr>
-				<th>
-					<label for="users">Choose the User responsible for the promotion:</label>
-				</th>
-			</tr>
-				<tr>
-					<td>
-					<select name="UserId" id="UserId" class="unhideFunctions form-control" onchange="initializeUserSelection()" required>
-							<option value=""> --  Choose a user  -- </option>
-							<div id=generateUsersSelect></div>
-							@foreach (var user in ViewBag.Users)
-							{
-								<option value="@user.CompanyId">@user.Name</option>
-							}
-						</select>
-					</td>
-				</tr>
-			<!--    SELECT A USER - ENDING    -->
-			<tfoot>
-				<tr>
-					<th><h5 class="initiallyHidden">Promotion being created for the Company:</h5></th>
-				</tr>
-				<tr>
-					<td><div id="companyName" class="text-center fs-5 bg-secondary bg-gradient text-white bg-opacity-75 unhideProductId"></div></td>
-				</tr>
-			</tfoot>
-		</table>*@
-
-
 		<!--    SELECT A Product - BEGINING    -->
-		<div class="">
-			<select id="ProductId" class="unhidePromoForm form-control form-control-lg"></select>
+		<select name="ProductId" id="ProductId" class="unhidePromoForm form-control" required>
+			<option value=""> --  Choose a Product  -- </option>
+			@{
+				foreach (var item in ViewData["products"] as IList<ProductResponseDto>)
+				{
+					<option value="@item.Id">@item.Description | Price: $ @item.Price</option>
+				}
+			}
+		</select>
+		<!--    SELECT A Product - ENDING    -->
+		<!--    FILL UP PROMO - BEGINING    -->
+		<div class="promoFormHidden">
 			<hr />
 
 			<h4 class="text-center">Please, fill up the details of the new Promotion:</h4>
+			<table class=" table">
+				<thead>
+					<tr>
+						<th><label for="Name">Promotion Name</label></th>
+						<th><label for="Description">Description</label></th>
+						<th><label for="TimesToPrize">Number of purchases to prize</label></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<input name="Name" type="text" required />
+							<span validation-for="Name" class="text-danger"></span>
+						<td>
+							<input name="Description" type="text" required />
+							<span validation-for="Description" class="text-danger"></span>
+						</td>
+						<td>
+							<input name="TimesToPrize" type="number" min="1" required />
+							<span validation-for="TimesToPrize" class="text-danger"></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table">
+				<thead>
+					<tr>
+						<th><label for="From">Starting date</label></th>
+						<th><label for="To">Ending date</label></th>
+						<th><label for="AvatarImage">Image for promotion</label></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<input name="From" type="datetime-local" required />
+							<span validation-for="From" class="text-danger"></span>
+						</td>
+						<td>
+							<input name="To" type="datetime-local" required />
+							<span validation-for="To" class="text-danger"></span>
+						</td>
+
+						<td><input name="AvatarImage" type="file" id="AvatarImage" onchange="fileCheck(this);" /></td>
+						<td><input type="submit" value="Create" class="btn btn-primary" /></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		<!--    SELECT A Product - ENDING    -->
-
-
-		<!--    FILL UP PROMO - BEGINING    -->
-		<table class="promoFormHidden table">
-			<thead>
-				<tr>
-					<th><label for="Name">Promotion Name</label></th>
-					<th><label for="Description">Description</label></th>
-					<th><label for="TimesToPrize">Number of purchases to prize</label></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<input name="Name" type="text" required />
-						<span validation-for="Name" class="text-danger"></span>
-					<td>
-						<input name="Description" type="text" required />
-						<span validation-for="Description" class="text-danger"></span>
-					</td>
-					<td>
-						<input name="TimesToPrize" type="number" min="1" required />
-						<span validation-for="TimesToPrize" class="text-danger"></span>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<table class="promoFormHidden table">
-			<thead>
-				<tr>
-					<th><label for="From">Starting date</label></th>
-					<th><label for="To">Ending date</label></th>
-					<th><label for="AvatarImage">Image for promotion</label></th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<input name="From" type="datetime-local" required />
-						<span validation-for="From" class="text-danger"></span>
-					</td>
-					<td>
-						<input name="To" type="datetime-local" required />
-						<span validation-for="To" class="text-danger"></span>
-					</td>
-
-					<td><input name="AvatarImage" type="file" id="AvatarImage" onchange="fileCheck(this);" /></td>
-					<td><input type="submit" value="Create" class="btn btn-primary" /></td>
-				</tr>
-			</tbody>
-		</table>
 		<!--    FILL UP PROMO - ENDING    -->
 	</form>
 

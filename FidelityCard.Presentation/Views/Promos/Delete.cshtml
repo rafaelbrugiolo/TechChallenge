@@ -1,33 +1,57 @@
-﻿@*@using FidelityCard.Application.Dtos.Response;
+﻿@using FidelityCard.Application.Dtos.Response;
+@model PromoResponseDto
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete a USER</h1>
+<h1>Delete a PROMOTION</h1>
 
 <h3>This action will permanently delete the registry below</h3>
 <div>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-           Name:
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Name
-        </dd>
-        <dt class="col-sm-2">
-            Email:
-        </dt>
-                <dd class="col-sm-10">
-            @Model.Email
-        </dd>
-    </dl>
+	<dl class="row">
+		<dt class="col-sm-2">
+			Name:
+		</dt>
+		<dd class="col-sm-10">
+			@Model.Name
+		</dd>
+		<dt class="col-sm-2">
+			Description:
+		</dt>
+		<dd class="col-sm-10">
+			@Model.Description
+		</dd>
+		<dt class="col-sm-2">
+			Number of purchases to prize:
+		</dt>
+		<dd class="col-sm-10">
+			@Model.TimesToPrize
+		</dd>
+		<dt class="col-sm-2">
+			Starting Date:
+		</dt>
+		<dd class="col-sm-10">
+			@Model.From
+		</dd>
+		<dt class="col-sm-2">
+			Ending Date:
+		</dt>
+		<dd class="col-sm-10">
+			@Model.To
+		</dd>
+		<dt class="col-sm-2">
+			Image for promotion:
+		</dt>
+		<dd class="col-sm-10">
+			<img src="data:image/png;base64, @Model.ImageContent" class="imageSize" />
+		</dd>
+	</dl>
 
-    <form asp-controller="Users" asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
+    <form asp-controller="Promos" asp-action="Delete">
+        <input type="hidden" asp-for="@Model.Id" />
         <input type="submit" value="Delete" class="btn btn-danger btn-sm" /> |
         <a asp-action="Index"><button type="button" class="btn btn-outline-primary btn-sm">Return to the list</button></a>
     </form>
 </div>
-*@

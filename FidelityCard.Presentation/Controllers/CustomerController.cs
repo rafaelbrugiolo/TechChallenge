@@ -49,7 +49,7 @@ public class CustomerController : Controller
 		}
 	}
 
-	[HttpGet("Products/Edit/{id}")]
+	[HttpGet("Customers/Edit/{id}")]
 	public ActionResult EditAsync(Guid id)
 	{
 		try
@@ -78,7 +78,7 @@ public class CustomerController : Controller
 		}
 	}
 
-	[HttpGet("Products/Delete/{id}")]
+	[HttpGet("Customers/Delete/{id}")]
 	public ActionResult DeleteAsync(Guid id)
 	{
 		try

@@ -10,11 +10,13 @@ namespace FidelityCard.Presentation.Controllers;
 public class PromosController : Controller
 {
     private readonly IPromoService _PromoService;
+    private readonly IProductService _ProductService;
 
 
-	public PromosController(IPromoService PromoService)
+	public PromosController(IPromoService PromoService, IProductService productService)
 	{
 		_PromoService = PromoService;
+		_ProductService = productService;
 	}
 
 	public ActionResult Index()
@@ -30,6 +32,8 @@ public class PromosController : Controller
     }
     public ActionResult Create()
     {
+        var products = _ProductService.GetAll().ToList();
+        ViewData[nameof(products)] = products;
         return View();
     }
 

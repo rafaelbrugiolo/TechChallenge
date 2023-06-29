@@ -1,52 +1,85 @@
-﻿@*@using FidelityCard.Application.Dtos.Response;
-
+﻿@using FidelityCard.Application.Dtos.Response;
+@model PromoResponseDto
 @{
-    ViewData["Title"] = "Edit";
+	ViewData["Title"] = "Edit";
 }
 
 <h1>Edit</h1>
 
 <hr />
+@using (Html.BeginForm("Edit", "Promos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	@Html.AntiForgeryToken()
 
-<form asp-controller="Users" asp-action="Edit">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th><label asp-for="Name">Name</label></th>
-                <th><label asp-for="Email">Email</label></th>
-                <th><label for="AvatarImage">Avatar</label></th>
-                <th></th>
-            </tr>a
-        </thead>
-        <tbody>
-            <tr>
-                <td><input asp-for="Name" type="text" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </td>
-                
-                <td><input asp-for="Email" type="text" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </td>
+	<form asp-action="Edit">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<table class=" table">
+			<thead>
+				<tr>
+					<th><label asp-for="Name">Promotion Name</label></th>
+					<th><label asp-for="Description">Description</label></th>
+					<th><label asp-for="TimesToPrize">Number of purchases to prize</label></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<input asp-for="Name" type="text" required />
+						<span asp-validation-for="Name" class="text-danger"></span>
+					<td>
+						<input asp-for="Description" type="text" required />
+						<span asp-validation-for="Description" class="text-danger"></span>
+					</td>
+					<td>
+						<input asp-for="TimesToPrize" type="number" min="1" required />
+						<span asp-validation-for="TimesToPrize" class="text-danger"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="table">
+			<thead>
+				<tr>
+					<th><label asp-for="From">Starting date</label></th>
+					<th><label asp-for="To">Ending date</label></th>
+					<th><label for="AvatarImage">Image for promotion</label></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<input asp-for="From" type="datetime-local" required />
+						<span asp-validation-for="From" class="text-danger"></span>
+					</td>
+					<td>
+						<input asp-for="To" type="datetime-local" required />
+						<span asp-validation-for="To" class="text-danger"></span>
+					</td>
 
-                <td><input name="AvatarImage" type="file" id="AvatarImage" onchange="fileCheck(this);" />
-                    <input type="hidden" asp-for="Id" />
-                </td>
+					<td><input name="AvatarImage" type="file" id="AvatarImage" onchange="fileCheck(this);" /></td>
+					<td><input type="submit" value="Confirm changes" class="btn btn-primary" /></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
 
-                <td><input type="submit" value="Confirm changes" class="btn btn-primary btn-sm" /></td>
-            </tr>
-        </tbody>
-    </table>
-
-</form>
-
-<div>
-    <a asp-action="Index"><button type="button" class="btn btn-outline-primary btn-sm">Return to the list</button></a>
-</div>
-
-@section Scripts {
-    @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+	<div>
+		<a asp-action="Index"><button type="button" class="btn btn-outline-primary btn-sm">Return to the list</button></a>
+	</div>
 }
-*@
+@section Scripts {
+
+	<script type="text/javascript">
+		function fileCheck(obj) {
+			var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+			if ($.inArray($(obj).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+				alert("Only '.jpeg','.jpg', '.png', '.gif', '.bmp' formats are allowed.");
+			}
+		}
+	</script>
+
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
