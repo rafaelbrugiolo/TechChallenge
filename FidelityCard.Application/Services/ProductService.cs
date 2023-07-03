@@ -14,14 +14,17 @@ public class ProductService : IProductService
     private const string ProductsContainer = "products";
     private readonly IStorage _blobStorage;
     private readonly IProductRepository _repository;
-    private readonly IMapper _mapper;
+    private readonly IPromoRepository _promoRepository;
+	private readonly IMapper _mapper;
 
-    public ProductService(IStorage blobStorage, IProductRepository repository, IMapper mapper)
+    public ProductService(IStorage blobStorage, IProductRepository repository, IPromoRepository promoRepository, IMapper mapper)
     {
         _blobStorage = blobStorage;
         _repository = repository;
         _mapper = mapper;
-    }
+        _promoRepository = promoRepository;
+
+	}
 
     public async Task<Guid> Create(ProductRequestDto dto, IFormFile? file)
     {
@@ -42,7 +45,12 @@ public class ProductService : IProductService
         if (product is null)
             throw new ResourceNotFoundException($"Product {id} not found.");
 
-        if (!string.IsNullOrWhiteSpace(product.PictureFileName))
+        var isThereLinkedPromo = _promoRepository.GetByAllWithProduct().Any(p => p.ProductId == product.Id);
+        if (isThereLinkedPromo)
+			throw new InvalidOperationException($"It is not possible to delete " +
+                $"the product {product.Description} because there is a linked promotion.");
+
+		if (!string.IsNullOrWhiteSpace(product.PictureFileName))
             _blobStorage.DeleteFile(ProductsContainer, product.PictureFileName);
 
         _repository.Delete(id);

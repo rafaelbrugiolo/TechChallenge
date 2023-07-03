@@ -1,9 +1,7 @@
 ﻿using FidelityCard.Application.Common;
 using FidelityCard.Application.Dtos.Request;
-using FidelityCard.Application.Dtos.Response;
 using FidelityCard.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Globalization;
 
 namespace FidelityCard.Presentation.Controllers;
 
@@ -108,20 +106,9 @@ public class ProductsController : BaseController
 		{
 			return NotFound();
 		}
-	}
-	[HttpGet("Products/GetByCompanyId/{id}")]
-	public ActionResult GetByCompanyId(Guid id)
-	{
-		try
+		catch (InvalidOperationException ex)
 		{
-			var products = _ProductService.GetAll();
-			List<ProductResponseDto> productsRes = new List<ProductResponseDto>();
-			return Json(productsRes);
-		}
-		catch (ResourceNotFoundException ex)
-		{
-			return NotFound();
+			return BadRequest(ex.Message);
 		}
 	}
-
 }
