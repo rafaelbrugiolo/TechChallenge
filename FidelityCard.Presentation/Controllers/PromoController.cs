@@ -1,17 +1,14 @@
 ﻿using FidelityCard.Application.Common;
 using FidelityCard.Application.Dtos.Request;
 using FidelityCard.Application.Interfaces;
-
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 
 namespace FidelityCard.Presentation.Controllers;
 
-public class PromosController : Controller
+public class PromosController : BaseController
 {
     private readonly IPromoService _PromoService;
     private readonly IProductService _ProductService;
-
 
 	public PromosController(IPromoService PromoService, IProductService productService)
 	{

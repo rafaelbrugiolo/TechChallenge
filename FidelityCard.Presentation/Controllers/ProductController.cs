@@ -3,10 +3,11 @@ using FidelityCard.Application.Dtos.Request;
 using FidelityCard.Application.Dtos.Response;
 using FidelityCard.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace FidelityCard.Presentation.Controllers;
 
-public class ProductsController : Controller
+public class ProductsController : BaseController
 {
 	private readonly IProductService _ProductService;
 
