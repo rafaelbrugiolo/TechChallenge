@@ -5,7 +5,7 @@
 	ViewData["Title"] = "Details";
 }
 
-<h1>User Details</h1>
+<h1>Promo Details</h1>
 
 <div>
 	<hr />
@@ -23,6 +23,12 @@
 			@Model.Description
 		</dd>
 		<dt class="col-sm-2">
+			Product:
+		</dt>
+		<dd class="col-sm-10">
+			@Model.Product.Description
+		</dd>
+		<dt class="col-sm-2">
 			Number of purchases to prize:
 		</dt>
 		<dd class="col-sm-10">
@@ -32,13 +38,13 @@
 			Starting Date:
 		</dt>
 		<dd class="col-sm-10">
-			@Model.From
+			@Model.From.Date.ToString("dd MMM yyyy")
 		</dd>
 		<dt class="col-sm-2">
 			Ending Date:
 		</dt>
 		<dd class="col-sm-10">
-			@Model.To
+			@Model.To.Date.ToString("dd MMM yyyy")
 		</dd>
 		<dt class="col-sm-2">
 			Image for promotion:

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FidelityCard.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230627220537_Initial")]
+    [Migration("20230703102534_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -32,8 +32,8 @@ namespace FidelityCard.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("Id");
 
-                    b.Property<string>("Birthdate")
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<DateTime?>("Birthdate")
+                        .HasColumnType("datetime2")
                         .HasColumnName("Birthdate");
 
                     b.Property<string>("ContactPhone")

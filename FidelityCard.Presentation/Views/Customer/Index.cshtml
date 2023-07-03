@@ -14,9 +14,8 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th></th>
 			<th>
-				Description
+				Name
 			</th>
 			<th>
 				Email
@@ -42,7 +41,7 @@
 					@item.Email
 				</td>
 				<td>
-					@item.Birthdate
+					@item.Birthdate.Date.ToString("dd MMM yyyy")
 				</td>
 				<td>
 					@item.ContactPhone

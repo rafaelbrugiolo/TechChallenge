@@ -21,6 +21,10 @@
 			<th>
 				Description
 			</th>
+
+			<th>
+				Product
+			</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -32,6 +36,9 @@
 				</td>
 				<td>
 					@item.Description
+				</td>
+				<td>
+					@item.Product.Description
 				</td>
 				<td>
 					<a asp-controller="Promos" asp-action="Edit" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Edit</button></a> |

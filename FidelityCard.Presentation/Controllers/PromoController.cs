@@ -21,13 +21,13 @@ public class PromosController : Controller
 
 	public ActionResult Index()
     {
-        var promos = _PromoService.GetAll().ToArray();
+        var promos = _PromoService.GetByAllWithProduct();
         return View(promos);
     }
 
     public async Task<ActionResult> DetailsAsync(Guid id)
     {
-        var promo = await _PromoService.GetByIdWithCompanyUserProduct(id);
+        var promo = await _PromoService.GetByIdWithProduct(id);
         return View(promo);
     }
     public ActionResult Create()
@@ -59,7 +59,7 @@ public class PromosController : Controller
     {
         try
         {
-            var promo = await _PromoService.GetByIdWithCompanyUserProduct(id);
+            var promo = await _PromoService.GetByIdWithProduct(id);
             return View(promo);
         }
         catch (ResourceNotFoundException ex)
@@ -89,7 +89,7 @@ public class PromosController : Controller
     {
         try
         {
-            var user = await _PromoService.GetByIdWithCompanyUserProduct(id);
+            var user = await _PromoService.GetByIdWithProduct(id);
             return View(user);
         }
         catch (ResourceNotFoundException ex)

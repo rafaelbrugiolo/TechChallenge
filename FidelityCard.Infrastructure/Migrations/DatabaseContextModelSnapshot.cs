@@ -29,8 +29,8 @@ namespace FidelityCard.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("Id");
 
-                    b.Property<string>("Birthdate")
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<DateTime?>("Birthdate")
+                        .HasColumnType("datetime2")
                         .HasColumnName("Birthdate");
 
                     b.Property<string>("ContactPhone")

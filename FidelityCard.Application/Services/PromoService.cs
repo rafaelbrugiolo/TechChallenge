@@ -72,13 +72,13 @@ public class PromoService : IPromoService
         _repository.SaveChanges();
     }
 
-    public IEnumerable<PromoResponseDto> GetAll()
+    public IEnumerable<PromoResponseDto> GetByAllWithProduct()
     {
-        foreach (var promo in _repository.List())
+        foreach (var promo in _repository.GetByAllWithProduct())
             yield return _mapper.Map<PromoResponseDto>(promo);
     }
 
-    public async Task<PromoResponseDto> GetByIdWithCompanyUserProduct(Guid id)
+    public async Task<PromoResponseDto> GetByIdWithProduct(Guid id)
     {
         var promo = await _repository.GetByIdWithProduct(id);
         if (promo is null)

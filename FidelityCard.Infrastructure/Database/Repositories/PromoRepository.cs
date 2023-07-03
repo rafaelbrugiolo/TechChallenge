@@ -10,6 +10,11 @@ public class PromoRepository : BaseRepository<Promo>, IPromoRepository
     {
 	}
 
+	public IEnumerable<Promo?> GetByAllWithProduct()
+	{
+		return DbSet.Include(u => u.Product);
+	}
+
 	public async Task<Promo?> GetByIdWithProduct(Guid id)
 	{
 		return await DbSet
