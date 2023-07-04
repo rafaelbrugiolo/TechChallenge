@@ -3,3 +3,17 @@
 
 // Write your JavaScript code.
 
+// Unhidding in HTML
+$(document).ready(function () {
+    $(".unhideFunctions").change(function () {
+
+        $(".initiallyHidden").show(20);
+    });
+});
+
+$(document).ready(function () {
+    $(".unhidePromoForm").change(function () {
+
+        $(".promoFormHidden").show(20);
+    });
+});

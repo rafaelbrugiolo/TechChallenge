@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using FidelityCard.Application.ViewModels;
+using FidelityCard.Presentation.Controllers;
 
 namespace FidelityCard.Controllers;
-public class HomeController : Controller
+public class HomeController : BaseController
 {
     private readonly ILogger<HomeController> _logger;
 

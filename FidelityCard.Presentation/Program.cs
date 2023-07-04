@@ -1,7 +1,10 @@
 using FidelityCard.Application.Common;
-using FidelityCard.Infrastructure.Database;
 using FidelityCard.Infrastructure.Extensions;
-using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+
+var cultureInfo = CultureInfo.GetCultureInfo("en-us");
+Thread.CurrentThread.CurrentCulture = cultureInfo;
+Thread.CurrentThread.CurrentUICulture = cultureInfo;
 
 var builder = WebApplication.CreateBuilder(args);
 

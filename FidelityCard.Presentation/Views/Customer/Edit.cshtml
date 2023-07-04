@@ -1,0 +1,71 @@
+﻿@using FidelityCard.Application.Dtos.Response;
+@model CustomerResponseDto
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<hr />
+<hr />@using (Html.BeginForm("Edit", "Customer", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><label asp-for="Name">Name</label></th>
+                    <th><label asp-for="Email">Email</label></th>
+                    <th><label asp-for="Birthdate">Date of Birth</label></th>
+                    <th><label asp-for="ContactPhone">Phone Number</label></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input asp-for="Name" type="text" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </td>
+
+                    <td>
+                        <input asp-for="Email" type="email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </td>
+
+                    <td>
+                        <input asp-for="Birthdate" type="date" />
+                        <span asp-validation-for="Birthdate" class="text-danger"></span>
+                    </td>
+
+                    <td>
+                        <input asp-for="ContactPhone" type="text" />
+                        <span asp-validation-for="ContactPhone" class="text-danger"></span>
+                    </td>
+                    <td><input type="hidden" asp-for="Id" /></td>
+
+                    <td><input type="submit" value="Confirm changes" class="btn btn-primary" /></td>
+                </tr>
+            </tbody>            
+        </table>
+
+    </form>
+
+    <div>
+        <a asp-action="Index"><button type="button" class="btn btn-outline-primary btn-sm">Return to the list</button></a>
+    </div>
+}
+@section Scripts {
+
+	<script type="text/javascript">
+		function fileCheck(obj) {
+			var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+			if ($.inArray($(obj).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+				alert("Only '.jpeg','.jpg', '.png', '.gif', '.bmp' formats are allowed.");
+			}
+		}
+	</script>
+}

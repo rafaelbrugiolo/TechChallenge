@@ -8,17 +8,13 @@ public class ProductMapping : BaseMapping<Product>
     public override string TableName => "Product";
     protected override void EntityMap(EntityTypeBuilder<Product> builder)
     {
-        builder.Property(p => p.CompanyId)
-            .IsRequired()
-            .HasColumnName("CompanyId");
-
         builder.Property(p => p.Description)
             .IsRequired()
             .HasColumnName("Description");
 
         builder.Property(p => p.Price)
             .IsRequired()
-            .HasPrecision(2)
+            .HasPrecision(18,2)
             .HasColumnType("decimal")
 			.HasColumnName("Price");
 

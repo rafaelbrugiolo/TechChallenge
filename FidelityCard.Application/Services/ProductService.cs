@@ -14,23 +14,24 @@ public class ProductService : IProductService
     private const string ProductsContainer = "products";
     private readonly IStorage _blobStorage;
     private readonly IProductRepository _repository;
-    private readonly IMapper _mapper;
+    private readonly IPromoRepository _promoRepository;
+	private readonly IMapper _mapper;
 
-    public ProductService(IStorage blobStorage, IProductRepository repository, IMapper mapper)
+    public ProductService(IStorage blobStorage, IProductRepository repository, IPromoRepository promoRepository, IMapper mapper)
     {
         _blobStorage = blobStorage;
         _repository = repository;
         _mapper = mapper;
-    }
+        _promoRepository = promoRepository;
+
+	}
 
     public async Task<Guid> Create(ProductRequestDto dto, IFormFile? file)
     {
-        var fileName = file is not null
-            ? await _blobStorage.UploadFile(ProductsContainer, file.OpenReadStream(), file.FileName)
-            : null;
-
         var product = _mapper.Map<Product>(dto);
-        product.PictureFileName = fileName;
+
+        if (file is not null)
+            product.PictureFileName = await _blobStorage.UploadFile(ProductsContainer, file.OpenReadStream(), file.FileName);
 
         _repository.Insert(product);
         _repository.SaveChanges();
@@ -44,7 +45,12 @@ public class ProductService : IProductService
         if (product is null)
             throw new ResourceNotFoundException($"Product {id} not found.");
 
-        if (!string.IsNullOrWhiteSpace(product.PictureFileName))
+        var isThereLinkedPromo = _promoRepository.GetByAllWithProduct().Any(p => p.ProductId == product.Id);
+        if (isThereLinkedPromo)
+			throw new InvalidOperationException($"It is not possible to delete " +
+                $"the product {product.Description} because there is a linked promotion.");
+
+		if (!string.IsNullOrWhiteSpace(product.PictureFileName))
             _blobStorage.DeleteFile(ProductsContainer, product.PictureFileName);
 
         _repository.Delete(id);
@@ -57,16 +63,17 @@ public class ProductService : IProductService
         if (product is null)
             throw new ResourceNotFoundException($"Product {id} not found.");
 
-        if (!string.IsNullOrWhiteSpace(product.PictureFileName))
-            _blobStorage.DeleteFile(ProductsContainer, product.PictureFileName);
+        if (file is not null)
+        {
+            if (!string.IsNullOrWhiteSpace(product.PictureFileName))
+                _blobStorage.DeleteFile(ProductsContainer, product.PictureFileName);
 
-        var fileName = file is not null
-            ? await _blobStorage.UploadFile(ProductsContainer, file.OpenReadStream(), file.FileName)
-            : null;
+            var newFileName = await _blobStorage.UploadFile(ProductsContainer, file.OpenReadStream(), file.FileName);
+            product.PictureFileName = newFileName;
+        }
 
         product.Description = dto.Description;
         product.Price = dto.Price;
-        product.PictureFileName = fileName;
 
         _repository.Update(product);
         _repository.SaveChanges();
@@ -78,12 +85,17 @@ public class ProductService : IProductService
             yield return _mapper.Map<ProductResponseDto>(product);
     }
 
-    public ProductResponseDto GetById(Guid id)
-    {
-        var poroduct = _repository.Read(id);
-        if (poroduct is null)
-            throw new ResourceNotFoundException($"Product {id} not found.");
+	public ProductResponseDto GetById(Guid id)
+	{
+		var product = _repository.Read(id);
+		if (product is null)
+			throw new ResourceNotFoundException($"Product {id} not found.");
 
-        return _mapper.Map<ProductResponseDto>(poroduct);
-    }
+		var productDto = _mapper.Map<ProductResponseDto>(product);
+
+		if (!string.IsNullOrWhiteSpace(product.PictureFileName))
+			productDto.PictureContent = _blobStorage.DownloadBase64FileContent(ProductsContainer, product.PictureFileName);
+
+		return productDto;
+	}
 }

@@ -9,12 +9,6 @@ public class AutoMapperConfig : Profile
 {
 	public AutoMapperConfig()
     {
-        CreateMap<Company, CompanyRequestDto>().ReverseMap();
-        CreateMap<Company, CompanyResponseDto>().ReverseMap();
-        
-        CreateMap<User, UserRequestDto>().ReverseMap();
-		CreateMap<User, UserResponseDto>().ReverseMap();
-
         CreateMap<Customer, CustomerRequestDto>().ReverseMap();
         CreateMap<Customer, CustomerResponseDto>().ReverseMap();
 

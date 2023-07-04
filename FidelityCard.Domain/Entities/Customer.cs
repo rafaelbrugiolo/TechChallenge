@@ -2,11 +2,8 @@
 
 public class Customer : BaseEntity
 {
-    public Guid CompanyId { get; set; }
     public string Name { get; set; }
     public string? Email { get; set; }
-    public string? Birthdate { get; set; }
+    public DateTime? Birthdate { get; set; }
     public string? ContactPhone { get; set; }
-
-    public virtual Company Company { get; set; }
 }

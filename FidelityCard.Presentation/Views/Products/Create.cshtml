@@ -1,41 +1,49 @@
 ﻿@using FidelityCard.Application.Dtos.Request;
-@model UserRequestDto
+@model ProductRequestDto;
 
 @{
-	ViewData["Title"] = "Create a new User";
+	ViewData["Title"] = "Create a new Product";
 }
 
-<h1>Create a New User</h1>
+<h1>Create a New Product</h1>
 
 
-<hr />@using (Html.BeginForm("Create", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+<hr />@using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 	@Html.AntiForgeryToken()
 
 	<form asp-action="Create">
-		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>		
 		<table class="table">
 			<thead>
 				<tr>
-					<th><label asp-for="Name">Name</label></th>
+					<th><label asp-for="Description">Description</label></th>
+					<th><label asp-for="Price">Price</label></th>
 					<th><label for="AvatarImage">Avatar</label></th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td><input asp-for="Name" type="text" />
-						<span asp-validation-for="Name" class="text-danger"></span>
+					<td>
+						<input asp-for="Description" type="text" />
+						<span asp-validation-for="Description" class="text-danger"></span>
+                    </td>
+
+					<td>
+						<input asp-for="Price" type="text" />
+						<span validation-for="Price" class="text-danger"></span>
 					</td>
 
 					<td><input name="AvatarImage" type="file" id="AvatarImage" onchange="fileCheck(this);" /></td>
+					
 					<td><input type="submit" value="Create" class="btn btn-primary" /></td>
 				</tr>
 			</tbody>
 		</table>
-
 	</form>
-	<div>
+
+	<div class="pt-4">
 		<a asp-action="Index"><button type="button" class="btn btn-outline-primary btn-sm">Return to the list</button></a>
 	</div>
 }
@@ -54,7 +62,4 @@
 	@{
 		await Html.RenderPartialAsync("_ValidationScriptsPartial");
 	}
-
-	<script src="~/ckeditor/ckeditor.js"></script>
-	<script src="~/ckeditor/adapters/jquery.js"></script>
 }
