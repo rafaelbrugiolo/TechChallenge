@@ -16,7 +16,7 @@ Nessa fase, o sistema faz:
 1.	Applicação feita em Net Core 6 utilizando Entity Framework;
 2.	Necessario criar instancia do SQL Server e Microsoft Azure Blob Storage e adicionar as string em Appsettings;
 	- Respectivamente em: "SqlServerConnectionString" e "AzureBlobStorageConnectionString";
-3.	As tabelas do banco serão geradas automaticamante;
+3.	O banco de dados juntamente com suas tabelas serão geradas automaticamante;
 4.	As subpastas do Blob serão geradas automaticamente.
 
 # Build and Test
