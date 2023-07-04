@@ -1,0 +1,42 @@
+﻿@using FidelityCard.Application.Dtos.Response;
+@model ProductResponseDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Product Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+           Description:
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Description
+        </dd>
+        <dt class="col-sm-2">
+           Price:
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Price
+        </dd>
+        <dd>
+            <dt class="col-sm-2"> Picture: </dt>
+            @if (Model.PictureContent != null)
+            {
+            <img src="data:image/png;base64, @Model.PictureContent" class="imageSize" />
+            }
+            else
+            {
+            <div><img src="~/lib/img/No_Image_Available.jpg" class="thumb" /></div>
+            }
+        </dd> 
+    </dl>
+</div>
+<div class="mb-5">
+    <a asp-action="Edit" asp-route-id="@Model?.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Edit</button></a> |
+    <a asp-action="Delete" asp-route-id="@Model?.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Delete</button></a> |
+    <a asp-action="Index"><button type="button" class="btn btn-outline-primary btn-sm">Return to the list</button></a>
+</div>

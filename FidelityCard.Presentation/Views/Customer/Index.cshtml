@@ -1,0 +1,57 @@
+﻿@using FidelityCard.Application.Dtos.Response;
+@model IEnumerable<CustomerResponseDto>
+
+@{
+	ViewData["Title"] = "Customers";
+}
+
+<h1>Registered CUSTOMERS</h1>
+
+<div class="d-grid gap-2">
+	<a asp-action="Create"><button class="btn btn-secondary" type="button"> - Register a Customer - </button></a>
+</div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>
+				Name
+			</th>
+			<th>
+				Email
+			</th>
+						<th>
+				Birthday date
+			</th>
+						<th>
+				Phone Number
+			</th>
+
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.OrderBy(customer => customer.Name))
+		{
+			<tr>
+				<td>
+					@item.Name
+				</td>
+				<td>
+					@item.Email
+				</td>
+				<td>
+					@item.Birthdate.Date.ToString("dd MMM yyyy")
+				</td>
+				<td>
+					@item.ContactPhone
+				</td>
+				<td>
+					<a asp-controller="Customer" asp-action="Edit" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Edit</button></a> |
+					<a asp-controller="Customer" asp-action="Details" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Details</button></a> |
+					<a asp-controller="Customer" asp-action="Delete" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-secondary btn-sm">Delete</button></a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
