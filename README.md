@@ -13,11 +13,11 @@ Nessa fase, o sistema faz:
 
 
 # Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+1.	Applicação feita em Net Core 6 utilizando Entity Framework;
+2.	Necessario criar instancia do SQL Server e Microsoft Azure Blob Storage e adicionar as string em Appsettings;
+	- Respectivamente em: "SqlServerConnectionString" e "AzureBlobStorageConnectionString";
+3.	As tabelas do banco serão geradas automaticamante;
+4.	As subpastas do Blob serão geradas automaticamente.
 
 # Build and Test
  - Navegação baseada no Menu no topo da tela:
