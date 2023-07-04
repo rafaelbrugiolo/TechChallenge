@@ -4,7 +4,10 @@
 @{
     ViewData["Title"] = "Delete";
 }
-
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
 <h1>Delete a PRODUCT</h1>
 
 <h3>This action will permanently delete the registry below</h3>

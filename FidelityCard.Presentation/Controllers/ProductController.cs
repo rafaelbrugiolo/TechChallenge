@@ -1,6 +1,7 @@
 ﻿using FidelityCard.Application.Common;
 using FidelityCard.Application.Dtos.Request;
 using FidelityCard.Application.Interfaces;
+using FidelityCard.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FidelityCard.Presentation.Controllers;
@@ -68,9 +69,9 @@ public class ProductsController : BaseController
 	public async Task<ActionResult> Edit(Guid id, ProductRequestDto dto)
 	{
 		try
-        {
-            var file = Request.Form.Files["AvatarImage"];
-            await _ProductService.Edit(id, dto, file);
+		{
+			var file = Request.Form.Files["AvatarImage"];
+			await _ProductService.Edit(id, dto, file);
 			return RedirectToAction(nameof(Index));
 		}
 		catch (ResourceNotFoundException ex)
@@ -84,13 +85,15 @@ public class ProductsController : BaseController
 	{
 		try
 		{
-			var product = _ProductService.GetById(id);
+			var product = _ProductService.GetById(id); 
 			return View(product);
 		}
 		catch (ResourceNotFoundException ex)
 		{
-			return NotFound();
-		}
+
+            return NotFound(ex.Message);
+
+        }
 	}
 
 	[HttpPost]
@@ -108,7 +111,9 @@ public class ProductsController : BaseController
 		}
 		catch (InvalidOperationException ex)
 		{
-			return BadRequest(ex.Message);
+            //return BadRequest(ex.Message);
+            TempData["ErrorMessage"] = "This product is linked to a promotion. Delete the promotion prior to delete the product.";
+			return RedirectToAction("Delete", "Products", new {id});
 		}
 	}
 }
